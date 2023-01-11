@@ -1,0 +1,8 @@
+#logo {
+    user-select: none;
+    /* font-family: "Roboto Mono", monospace; */
+    /* font-family: "Lexend Deca", sans-serif; */
+    /* font-family: "Poppins", sans-serif; */
+    font-family: "Varela Round", sans-serif;
+    font-size: 1.5rem;
+}

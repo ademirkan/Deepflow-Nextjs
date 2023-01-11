@@ -1,0 +1,121 @@
+import React, { ReactElement } from "react";
+import CircularProgress from "../CircularProgress";
+import { Time } from "../../Typescript/types/Time";
+import styles from "../../styles/CircularTimerView.module.css";
+import { formatTime } from "../../helpers/formatTime";
+import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
+import { SessionLabel } from "../SessionLabel";
+import TextButton from "../Buttons/TextButton";
+
+interface ICircularCountdownViewProps extends ITimerViewProps {
+    clockwise?: boolean;
+    labelArea?: ReactElement;
+}
+
+export default function CircularCountdownView(
+    props: ICircularCountdownViewProps
+) {
+    const clockwise = props.clockwise ? props.clockwise : false;
+    let remainingTime =
+        props.targetDuration.valueOf() - props.elapsedTime.valueOf();
+
+    // calculate overtime duration
+    let overtimeMs = 0;
+    if (remainingTime < 0) {
+        overtimeMs = remainingTime * -1;
+    }
+
+    return (
+        <>
+            <CircularProgress
+                filledPercent={
+                    props.isRunning
+                        ? (remainingTime - 900) / props.targetDuration.valueOf()
+                        : remainingTime / props.targetDuration.valueOf()
+                }
+                clockwise={clockwise}
+                thickness={0.03}
+                animationDuration={props.isRunning ? "1s" : "0.15s"}
+            />
+
+            <div id={styles.innerUI}>
+                {props.labelArea}
+
+                <TextTimer
+                    time={
+                        props.targetDuration instanceof Date
+                            ? new Date(
+                                  props.targetDuration.getTime() -
+                                      props.elapsedTime.getTime()
+                              )
+                            : props.targetDuration
+                    }
+                    style={{ color: "var(--text-color)" }}
+                />
+                {overtimeMs === 0 ? (
+                    <ControlBar isRunning={props.isRunning}>
+                        {!props.isRunning ? (
+                            <TextButton
+                                icon={
+                                    <i className="fa-solid flex justify-center items-center fa-circle-play h-16 w-16 p-4 text-sub transition-colors hover:text-main active:text-sub text-3xl " />
+                                }
+                                onClick={props.onStart}
+                            />
+                        ) : overtimeMs === 0 ? (
+                            <>
+                                <TextButton
+                                    icon={
+                                        <i className="fa-solid flex justify-center items-center fa-clock-rotate-left h-16 w-16 p-4 text-sub transition-colors hover:text-main active:text-sub text-3xl " />
+                                    }
+                                    onClick={props.onReset}
+                                />
+                                <TextButton
+                                    icon={
+                                        <i className="fa-solid flex justify-center items-center fa-circle-pause h-16 w-16 p-4 text-sub transition-colors hover:text-main active:text-sub text-3xl" />
+                                    }
+                                    onClick={props.onPause}
+                                />
+                                <TextButton
+                                    icon={
+                                        <i className="fa-solid flex justify-center items-center fa-circle-chevron-right h-16 w-16 p-4 text-sub transition-colors hover:text-main active:text-sub text-3xl"></i>
+                                    }
+                                    onClick={props.onFinish}
+                                />
+                            </>
+                        ) : (
+                            <div className="button">break</div>
+                        )}
+                    </ControlBar>
+                ) : (
+                    <div className="button">yeet</div>
+                )}
+            </div>
+        </>
+    );
+}
+
+interface ITextTimerProps {
+    time: Time;
+    style: object;
+}
+
+function TextTimer(props: ITextTimerProps) {
+    return (
+        <div className={styles.textTimer} style={props.style}>
+            {formatTime(props.time)}
+        </div>
+    );
+}
+
+interface IControlBar {
+    isRunning: boolean;
+    children: ReactElement;
+}
+
+function ControlBar(props: IControlBar) {
+    return (
+        <div id={styles.controlBar} className="flex justify-around h-16 ">
+            {props.children}
+        </div>
+    );
+}

@@ -1,0 +1,12 @@
+.timerLabel {
+    font-size: 1rem;
+    color: var(--bg-color);
+    font-family: "Roboto Mono", monospace;
+    background-color: var(--sub-color);
+    margin-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0.3rem;
+    position: relative;
+    bottom: 5px;
+}

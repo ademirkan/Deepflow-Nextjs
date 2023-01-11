@@ -1,0 +1,60 @@
+.textTimer {
+    user-select: none;
+    position: absolute;
+    width: 100%;
+    top: 2rem;
+    text-align: center;
+    font-size: 3rem;
+    font-family: "Roboto Mono", monospace;
+}
+
+/* Grid for the inside of the circle */
+#innerUI {
+    position: absolute;
+
+    aspect-ratio: 1;
+    width: 63.7%;
+    height: 10rem;
+
+    display: grid;
+    grid-template-areas:
+        "label"
+        "timer"
+        "control-bar";
+    grid-template-rows: 1.5rem auto 50px;
+}
+
+.label {
+    font-size: 1rem;
+    color: var(--bg-color);
+    font-family: "Roboto Mono", monospace;
+    background-color: var(--sub-color);
+    margin-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0.3rem;
+    position: relative;
+    bottom: 5px;
+}
+.hidden {
+    transition: 150ms ease-in-out;
+    opacity: 0%;
+    visibility: hidden;
+}
+
+.visible {
+    transition: opacity 150ms ease-in-out;
+    opacity: 100%;
+}
+#controlBar {
+    grid-area: control-bar;
+    position: relative;
+}
+
+#backgroundCircle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 15px 15px 30px #dedede, -15px -15px 30px #ffffff;
+}

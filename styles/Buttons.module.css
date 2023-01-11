@@ -1,0 +1,43 @@
+.textBtn {
+    color: var(--sub-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    transition: color 150ms linear;
+}
+
+.textBtn:hover {
+    color: var(--text-color);
+}
+
+.textBtn.active {
+    color: var(--main-color);
+}
+
+.textBtn.active:hover {
+    color: var(--text-color);
+}
+
+.textBtn:active {
+    color: var(--sub-color) !important;
+}
+
+.textBtn:focus {
+    color: var(--main-color);
+}
+
+.textBtn.sm {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.textBtn.med {
+    font-size: 1rem;
+    line-height: 1.3rem;
+}
+
+.textBtn.lg {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
