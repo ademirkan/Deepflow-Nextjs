@@ -10,8 +10,13 @@ const CircularProgress = ({
 }) => {
     return (
         <>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50" fill={"var(--sub-color"} />
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 100 100"
+                heigh="inherit"
+                width="inherit"
+            >
+                <circle cx="50" cy="50" r="50" fill={"var(--sub-color)"} />
                 <circle
                     cx="50"
                     cy="50"
@@ -30,7 +35,6 @@ const CircularProgress = ({
                     cy="50"
                     r={50 - 50 * thickness}
                     fill="var(--bg-color)"
-                    className="transition-colors"
                 />
             </svg>
         </>

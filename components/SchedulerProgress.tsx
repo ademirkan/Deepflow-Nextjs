@@ -59,7 +59,7 @@ export const SchedulerProgress = (props: any) => {
                                 cx="50"
                                 cy="50"
                                 r="50"
-                                fill={"var(--sub-color"}
+                                fill={"var(--sub-color)"}
                             />
                         </svg>
                     );

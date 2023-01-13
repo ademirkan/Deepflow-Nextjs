@@ -1,1 +1,7 @@
-{"--bg-color": "#003950", "--main-color": "#ffcefb", "--sub-color": "#00e4ff", "--sub-alt-color": "#014961", "--text-color": "#82eaff"}
+{
+    "--bg-color": "#003950",
+    "--main-color": "#ffcefb",
+    "--sub-color": "#00e4ff",
+    "--sub-alt-color": "#014961",
+    "--text-color": "#82eaff"
+}
