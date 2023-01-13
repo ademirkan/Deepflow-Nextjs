@@ -6,8 +6,8 @@ import { ThemeContext } from "../contexts/ThemeContext";
 import styles from "../styles/PageLayout.module.css";
 
 interface IProps {
-    isTimerActive: boolean;
-    actionArea: ReactElement;
+    isTimerActive?: boolean;
+    actionArea?: ReactElement;
     children: ReactNode;
 }
 
