@@ -30,7 +30,7 @@ export const SchedulerProvider: React.FC<Props> = ({ children }) => {
 
     const next = () => {
         scheduler.next();
-        setScheduleIndex((prev) => prev + 1);
+        setScheduleIndex((prev) => (prev + 1) % schedule.length);
     };
 
     useEffect(() => {
