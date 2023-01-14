@@ -35,6 +35,7 @@ const CircularProgress = ({
                     cy="50"
                     r={50 - 50 * thickness}
                     fill="var(--bg-color)"
+                    className="transition-colors"
                 />
             </svg>
         </>

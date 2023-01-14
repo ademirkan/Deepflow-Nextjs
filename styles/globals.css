@@ -45,7 +45,7 @@ header {
 
 /* opacity transitions */
 .animated-hidden {
-    transition: 150ms ease-in-out;
+    transition: opacity 150ms ease-in-out, visibility 150ms ease-in-out;
     opacity: 0%;
     visibility: hidden;
 }
