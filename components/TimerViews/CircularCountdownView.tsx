@@ -4,7 +4,6 @@ import { Time } from "../../Typescript/types/Time";
 import styles from "../../styles/CircularTimerView.module.css";
 import { formatTime } from "../../helpers/formatTime";
 import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
-import { SessionLabel } from "../SessionLabel";
 import TextButton from "../Buttons/TextButton";
 
 interface ICircularCountdownViewProps extends ITimerViewProps {

@@ -9,6 +9,7 @@ export default function useScheduler(
     schedule: TimerSession[],
     startIndex: number
 ) {
+    const [activeSchedule, setActiveSchedule] = useState(schedule);
     const [scheduleIndex, setScheduleIndex] = useState(
         startIndex % schedule.length
     );
@@ -32,5 +33,11 @@ export default function useScheduler(
     };
 
     const currentSession = schedule[scheduleIndex];
-    return { currentSession, next };
+    const scheduler = { currentSession, next };
+    const setScheduler = (schedule: TimerSession[], startIndex: number) => {
+        setActiveSchedule(schedule);
+        setScheduleIndex(startIndex % schedule.length);
+    };
+
+    return [scheduler, setScheduler];
 }

@@ -12,7 +12,7 @@ export default function TimerPage() {
     return (
         <>
             <PageLayout isTimerActive={isRunning} actionArea={<QuickConfig />}>
-                <main className="flex justify-center items-center flex-col">
+                <main className="relative flex justify-center items-center flex-col gap-6 top-2">
                     <Timer />
                     <SchedulerProgress />
                 </main>

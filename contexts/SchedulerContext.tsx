@@ -13,6 +13,7 @@ export const SchedulerContext = React.createContext({
     currentSession: DEFAULT_CURRENT_SESSION,
     next: () => {},
     scheduleIndex: 0,
+    resetSchedule: () => {},
 });
 
 interface Props {
@@ -25,7 +26,7 @@ export const SchedulerProvider: React.FC<Props> = ({ children }) => {
         schedulerSettings.activeSchedulerConfig.schedule
     );
     const [scheduleIndex, setScheduleIndex] = useState(0);
-    const scheduler = useScheduler(schedule, 0);
+    const [scheduler, setScheduler] = useScheduler(schedule, 0);
 
     const next = () => {
         scheduler.next();
@@ -36,12 +37,18 @@ export const SchedulerProvider: React.FC<Props> = ({ children }) => {
         setSchedule(schedulerSettings.activeSchedulerConfig.schedule);
     }, [schedulerSettings.activeSchedulerConfig]);
 
+    const resetSchedule = () => {
+        setScheduleIndex(0);
+        setScheduler(schedule, 0);
+    };
+
     return (
         <SchedulerContext.Provider
             value={{
                 currentSession: scheduler.currentSession,
                 next,
                 scheduleIndex,
+                resetSchedule,
             }}
         >
             {children}
