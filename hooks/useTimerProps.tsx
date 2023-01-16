@@ -12,6 +12,7 @@ import { ITimerProps } from "../Typescript/interfaces/ITimerProps";
 import { ITimerViewProps } from "../Typescript/interfaces/ITimerViewProps";
 import { TimerView } from "../Typescript/Types/TimerView";
 import { TimerViewConstructor } from "../Typescript/types/TimerViewConstructor";
+import useSound from "use-sound";
 
 /**
     viewConstructor: TimerViewConstructor;
@@ -33,7 +34,7 @@ export default function useTimerProps(): ITimerProps {
                     labelArea={
                         <SessionLabel
                             label={currentSession.isBreak ? "break" : "study"}
-                        ></SessionLabel>
+                        />
                     }
                 />
             );
@@ -78,6 +79,11 @@ function useTimerCallbacks(): ITimerCallbacks {
     const { isRunning, isStarted, setIsRunning, setIsStarted } =
         useContext(TimerStateContext);
     const { pushSession } = useContext(SessionsContext);
+    const { alarmSettings } = useContext(SettingsContext);
+
+    //@ts-ignore
+    const [alarm, { stop }] = useSound(alarmSettings.alarmSound);
+
     const callbacks: ITimerCallbacks = {
         onStart: (time) => {
             setIsRunning(true);
@@ -132,6 +138,12 @@ function useTimerCallbacks(): ITimerCallbacks {
                 time: new Date(9000),
                 callback: (time) => {
                     console.log("9sec mark! " + time);
+                },
+            },
+            {
+                time: new Date(1100),
+                callback: (time) => {
+                    alarm();
                 },
             },
         ],

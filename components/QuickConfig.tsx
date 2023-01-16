@@ -163,7 +163,7 @@ export function QuickConfig() {
 
     const {
         activeSchedulerConfig,
-        setActiveSchedulerConfig,
+        setActiveSchedulerConfigById,
         updateSchedulerConfig,
     } = schedulerSettings;
 
@@ -177,7 +177,7 @@ export function QuickConfig() {
                 <TextButton
                     isActive={activeSchedulerConfig.id === "POMODORO_SCHEDULER"}
                     onClick={() => {
-                        setActiveSchedulerConfig("POMODORO_SCHEDULER");
+                        setActiveSchedulerConfigById("POMODORO_SCHEDULER");
                     }}
                 >
                     pomodoro
@@ -187,7 +187,7 @@ export function QuickConfig() {
                         activeSchedulerConfig.id === "STOPWATCH_SCHEDULER"
                     }
                     onClick={() => {
-                        setActiveSchedulerConfig("STOPWATCH_SCHEDULER");
+                        setActiveSchedulerConfigById("STOPWATCH_SCHEDULER");
                     }}
                 >
                     stopwatch

@@ -20,7 +20,7 @@ export const SchedulerProgress = (props: any) => {
     return (
         <div className="relative flex flex-row justify-center items-center w-72">
             <div
-                className={`flex flex-row justify-center items-center relative left-[${ICON_RADIUS}]`}
+                className={`flex flex-row justify-center items-center relative left-[22px]`}
             >
                 {[...schedule]
                     .splice(0, scheduleIndex)
@@ -68,7 +68,7 @@ export const SchedulerProgress = (props: any) => {
                         );
                     })}
             </div>
-            <div className={`flex items-center relative left-[${ICON_RADIUS}]`}>
+            <div className={` flex items-center relative left-[22px]`}>
                 <TextButton
                     size="lg"
                     icon={

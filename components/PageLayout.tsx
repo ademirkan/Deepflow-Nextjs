@@ -132,7 +132,7 @@ function NavMenu({ isTimerActive }: any) {
                     <Link href="/">
                         <TextButton
                             icon={
-                                <i className="fa-regular fa-clock fa-lg px-3 py-4"></i>
+                                <i className="fa-regular fa-clock fa-lg px-2 py-4"></i>
                             }
                         ></TextButton>
                     </Link>
