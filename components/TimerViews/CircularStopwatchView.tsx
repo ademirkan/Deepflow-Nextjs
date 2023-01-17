@@ -3,7 +3,7 @@ import CircularProgress from "../CircularProgress";
 import styles from "../../styles/CircularTimerView.module.css";
 import { formatTime } from "../../helpers/formatTime";
 import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
-import { Time } from "../../Typescript/types/Time";
+import { Duration } from "../../Typescript/types/Duration";
 
 // Props specific to CircularStopwatchView
 interface ICircularStopwatchViewConstructorProps {
@@ -64,7 +64,7 @@ export const CircularStopwatchView = (props: ICircularStopwatchViewProps) => {
 };
 
 interface ITextTimerProps {
-    time: Time;
+    time: Duration;
     style: object;
 }
 

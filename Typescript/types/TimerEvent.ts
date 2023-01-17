@@ -1,6 +1,10 @@
-import { Time } from "./Time";
+import { Duration } from "./Duration";
 
 export type TimerEvent = {
-  time: Time;
-  callback: (currentTime: Time, startTime: Time, elapsedTime: Time) => void;
+    timeElapsed: Duration;
+    callback: (
+        currentTime: Date,
+        startTime: Date,
+        elapsedTime: Duration
+    ) => void;
 };

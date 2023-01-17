@@ -2,14 +2,10 @@
  * Returns formatted time (M)MM:SS
  * @param {int} seconds
  */
-import { Time } from "../Typescript/types/Time";
-export function formatTime(time: Date) {
-    // fixes initial localstorage state == string bug
-    if (typeof time === "string") {
-        time = new Date(time);
-    }
+import { Duration } from "../Typescript/types/Duration";
+export function formatTime(time: Duration) {
+    let seconds = time / 1000;
 
-    let seconds = time.getTime() / 1000;
     seconds = Math.round(seconds); // incase seconds is not a whole integer
     const minutes = Math.floor(seconds / 60);
     let minuteString = minutes.toString();

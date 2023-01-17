@@ -7,7 +7,7 @@ export default function useStopwatch(
     tickInterval: number = 1000
 ) {
     // States
-    const [time, setTime] = useState(new Date(0)); // current time
+    const [elapsedTime, setElapsedTime] = useState(0); // current time
     const [isRunning, setIsRunning] = useState(false); // current timer state
     const [isStarted, setIsStarted] = useState(false); // true if timer has started, false when reset
 
@@ -44,13 +44,13 @@ export default function useStopwatch(
                 callbacks.onTickEvents === undefined
                     ? []
                     : [...callbacks.onTickEvents]
-            ).sort((a, b) => b.time.valueOf() - a.time.valueOf());
+            ).sort((a, b) => b.timeElapsed - a.timeElapsed);
 
         // discard all events that have already occured
         while (
             descendingEvents.length !== 0 &&
-            descendingEvents[descendingEvents.length - 1].time.valueOf() <
-                time.valueOf()
+            descendingEvents[descendingEvents.length - 1].timeElapsed <
+                elapsedTime
         ) {
             descendingEvents.pop();
         }
@@ -64,24 +64,27 @@ export default function useStopwatch(
      */
     function tick() {
         let now = new Date();
-        let nextTime = now;
+        let nextTime = 0;
         let deltaMs = delta(lastUpdateRef.current, now);
         lastUpdateRef.current = now;
 
-        setTime((prevTime) => {
-            nextTime = new Date(prevTime.valueOf() + deltaMs.valueOf());
+        setElapsedTime((prevTime) => {
+            nextTime = prevTime + deltaMs;
             return nextTime;
         });
 
         if (callbacksRef.current.onTick !== undefined) {
-            callbacksRef.current.onTick(time, now, startTimeRef.current);
+            callbacksRef.current.onTick(elapsedTime, now, startTimeRef.current);
         }
 
         if (
             eventsRef.current.length &&
-            eventsRef.current[eventsRef.current.length - 1].time <= nextTime
+            eventsRef.current[eventsRef.current.length - 1].timeElapsed <=
+                nextTime
         ) {
-            eventsRef.current.pop()?.callback(time, now, startTimeRef.current);
+            eventsRef.current
+                .pop()
+                ?.callback(now, startTimeRef.current, elapsedTime);
         }
     }
 
@@ -97,7 +100,7 @@ export default function useStopwatch(
             setIsStarted(true);
         } else {
             callbacksRef.current.onResume?.(
-                time,
+                elapsedTime,
                 currentTime,
                 startTimeRef.current
             );
@@ -116,35 +119,47 @@ export default function useStopwatch(
      */
     function stop() {
         setIsRunning(false);
-        callbacksRef.current.onPause?.(time, new Date(), startTimeRef.current);
+        callbacksRef.current.onPause?.(
+            elapsedTime,
+            new Date(),
+            startTimeRef.current
+        );
     }
 
     /**
      * Resets timer
      */
     function reset() {
-        callbacksRef.current.onReset?.(time, new Date(), startTimeRef.current);
+        callbacksRef.current.onReset?.(
+            elapsedTime,
+            new Date(),
+            startTimeRef.current
+        );
         eventsRef.current = (
             callbacks.onTickEvents === undefined
                 ? []
                 : [...callbacks.onTickEvents]
-        ).sort((a, b) => b.time.valueOf() - a.time.valueOf());
+        ).sort((a, b) => b.timeElapsed - a.timeElapsed);
         setIsStarted(false);
         setIsRunning(false);
-        setTime(new Date(0));
+        setElapsedTime(0);
     }
 
     /**
      * Ends timer
      */
     function end() {
-        setTime(new Date(0));
+        setElapsedTime(0);
         setIsStarted(false);
         setIsRunning(false);
-        callbacksRef.current.onEnd?.(time, new Date(), startTimeRef.current);
+        callbacksRef.current.onEnd?.(
+            elapsedTime,
+            new Date(),
+            startTimeRef.current
+        );
     }
 
-    return { time, isRunning, isStarted, start, stop, reset, end };
+    return { elapsedTime, isRunning, isStarted, start, stop, reset, end };
 }
 
 /**

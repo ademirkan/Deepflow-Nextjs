@@ -8,126 +8,126 @@ import { useTimerStatusStore } from "../store/useTimerStatusStore";
 const POMODORO_PRESETS = {
     15: [
         {
-            targetDuration: new Date(15 * 60 * 1000),
+            targetDuration: 15 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(3 * 60 * 1000),
+            targetDuration: 3 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(15 * 60 * 1000),
+            targetDuration: 15 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(3 * 60 * 1000),
+            targetDuration: 3 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(15 * 60 * 1000),
+            targetDuration: 15 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(3 * 60 * 1000),
+            targetDuration: 3 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(15 * 60 * 1000),
+            targetDuration: 15 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(10 * 60 * 1000),
+            targetDuration: 10 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
     ],
     25: [
         {
-            targetDuration: new Date(25 * 60 * 1000),
+            targetDuration: 25 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(5 * 60 * 1000),
+            targetDuration: 5 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(25 * 60 * 1000),
+            targetDuration: 25 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(5 * 60 * 1000),
+            targetDuration: 5 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(25 * 60 * 1000),
+            targetDuration: 25 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(5 * 60 * 1000),
+            targetDuration: 5 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(25 * 60 * 1000),
+            targetDuration: 25 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(15 * 60 * 1000),
+            targetDuration: 15 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
     ],
     50: [
         {
-            targetDuration: new Date(50 * 60 * 1000),
+            targetDuration: 50 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(10 * 60 * 1000),
+            targetDuration: 10 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(50 * 60 * 1000),
+            targetDuration: 50 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(10 * 60 * 1000),
+            targetDuration: 10 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(50 * 60 * 1000),
+            targetDuration: 50 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(10 * 60 * 1000),
+            targetDuration: 10 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(50 * 60 * 1000),
+            targetDuration: 50 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(30 * 60 * 1000),
+            targetDuration: 30 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
@@ -135,22 +135,22 @@ const POMODORO_PRESETS = {
 
     90: [
         {
-            targetDuration: new Date(90 * 60 * 1000),
+            targetDuration: 90 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(25 * 60 * 1000),
+            targetDuration: 25 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },
         {
-            targetDuration: new Date(90 * 60 * 1000),
+            targetDuration: 90 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: false,
         },
         {
-            targetDuration: new Date(60 * 60 * 1000),
+            targetDuration: 60 * 60 * 1000,
             timerType: TimerType.countdown,
             isBreak: true,
         },

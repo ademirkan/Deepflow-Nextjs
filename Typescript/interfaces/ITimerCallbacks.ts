@@ -1,4 +1,4 @@
-import { Time } from "../types/Time";
+import { Time } from "../types/Duration";
 import { TimerEvent } from "../types/TimerEvent";
 
 /**

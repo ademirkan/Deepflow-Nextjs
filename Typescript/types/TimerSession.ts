@@ -1,7 +1,8 @@
 import { TimerType } from "../enums/TimerType";
+import { Duration } from "./Duration";
 
 export type TimerSession = {
-  targetDuration: Date;
-  timerType: TimerType;
-  isBreak: boolean;
+    targetDuration: Duration;
+    timerType: TimerType;
+    isBreak: boolean;
 };

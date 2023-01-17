@@ -8,22 +8,32 @@ interface AlarmState {
     setIsAlarmEnabled: (enabled: boolean) => void;
     volume: number;
     setVolume: (percent: number) => void;
-
-    alarmSound: Buffer;
-    // alarmSoundName: string; // don't want this to be public, but need to persist it...
-    // setAlarmSoundByName: (name: string) => void;
+    alarmSoundName: string; // don't want this to be public, but need to persist it...
+    setAlarmSoundByName: (name: string) => void;
 }
 
+const DEFAULT_STATE: AlarmState = {
+    isAlarmEnabled: true,
+    setIsAlarmEnabled: (enabled) => {},
+
+    volume: 0.5,
+    setVolume: (percent) => {},
+
+    alarmSoundName: "gentle.mp3",
+    setAlarmSoundByName: (name) => {},
+};
 export const useAlarmStore = create<AlarmState>()(
     devtools(
         persist(
             (set) => ({
-                isAlarmEnabled: true,
+                isAlarmEnabled: DEFAULT_STATE.isAlarmEnabled,
                 setIsAlarmEnabled: (enabled) =>
                     set((state) => ({ isAlarmEnabled: enabled })),
-                volume: 0.5,
+                volume: DEFAULT_STATE.volume,
                 setVolume: (percent) => set((state) => ({ volume: percent })),
-                alarmSound: defaultSound,
+                alarmSoundName: DEFAULT_STATE.alarmSoundName,
+                setAlarmSoundByName: (soundName) =>
+                    set((state) => ({ alarmSoundName: soundName })),
             }),
             {
                 name: "alarm-storage",

@@ -1,9 +1,9 @@
-import { Time } from "../types/Time";
+import { Duration } from "../types/Duration";
 import { TimerViewConstructor } from "../types/TimerViewConstructor";
 import { ITimerCallbacks } from "./ITimerCallbacks";
 
 export interface IStopwatchTimerProps {
     viewConstructor: TimerViewConstructor;
-    targetDuration: Time;
+    targetDuration: Duration;
     callbacks: ITimerCallbacks;
 }

@@ -9,6 +9,7 @@ export const SchedulerProgress = (props: any) => {
     );
 
     const { scheduleIndex, reset } = useScheduler();
+    console.log(scheduleIndex);
 
     const [schedule, setSchedule] = useState(activeSchedulerConfig.schedule);
 

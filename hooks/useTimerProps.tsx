@@ -6,20 +6,12 @@ import { TimerType } from "../Typescript/enums/TimerType";
 import { ITimerCallbacks } from "../Typescript/interfaces/ITimerCallbacks";
 import { ITimerProps } from "../Typescript/interfaces/ITimerProps";
 import { ITimerViewProps } from "../Typescript/interfaces/ITimerViewProps";
-import { TimerView } from "../Typescript/Types/TimerView";
 import { TimerViewConstructor } from "../Typescript/types/TimerViewConstructor";
-import useSound from "use-sound";
 import { useScheduler } from "./newUseScheduler";
 import { useTimerStatusStore } from "../store/useTimerStatusStore";
 import { useSessionHistoryStore } from "../store/useSessionHistoryStore";
 import { useAlarmStore } from "../store/useAlarmStore";
 
-/**
-    viewConstructor: TimerViewConstructor;
-    targetDuration: Time;
-    callbacks: ITimerCallbacks;
-    overtime: boolean; 
- */
 export default function useTimerProps(): ITimerProps {
     const { currentSession } = useScheduler();
     const callbacks = useTimerCallbacks();
@@ -97,7 +89,7 @@ function useTimerCallbacks(): ITimerCallbacks {
             console.log("started");
         },
         onTick: (time, elapsedTime, startTime) => {
-            console.log("Tick!");
+            console.log("Tick!", elapsedTime.getTime());
         },
         onEnd: (time, elapsedTime, startTime) => {
             /**
@@ -124,32 +116,10 @@ function useTimerCallbacks(): ITimerCallbacks {
 
         onTickEvents: [
             {
-                time: new Date(10000),
+                timeElapsed: 10000,
                 callback: (time) => {
                     console.log("10sec mark! " + time);
                 },
-            },
-            {
-                time: new Date(4000),
-                callback: (time) => {
-                    console.log("4sec mark! " + time);
-                },
-            },
-            {
-                time: new Date(3000),
-                callback: (time) => {
-                    console.log("3sec mark! " + time);
-                },
-            },
-            {
-                time: new Date(9000),
-                callback: (time) => {
-                    console.log("9sec mark! " + time);
-                },
-            },
-            {
-                time: new Date(1100),
-                callback: (time) => {},
             },
         ],
     };

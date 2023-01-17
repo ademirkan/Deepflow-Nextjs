@@ -1,10 +1,10 @@
-import { Time } from "../types/Time";
+import { Duration } from "../types/Duration";
 import { TimerViewConstructor } from "../types/TimerViewConstructor";
 import { ITimerCallbacks } from "./ITimerCallbacks";
 
 export interface ICountdownTimerProps {
     viewConstructor: TimerViewConstructor;
-    targetDuration: Time;
+    targetDuration: Duration;
     callbacks: ITimerCallbacks;
     overtime: boolean;
 }

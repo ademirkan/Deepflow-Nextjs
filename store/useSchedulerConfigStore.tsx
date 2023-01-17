@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import useScheduler from "../hooks/useScheduler";
 import { TimerType } from "../Typescript/enums/TimerType";
 import { ISchedulerConfig } from "../Typescript/interfaces/ISchedulerConfig";
 import { TimerSession } from "../Typescript/types/TimerSession";
@@ -16,7 +15,7 @@ interface SchedulerConfigState {
     deleteSchedulerConfig: (id: string) => boolean;
     createSchedulerConfig: (config: Omit<ISchedulerConfig, "id">) => boolean;
 
-    // // Active Scheduler Config
+    // // // Active Scheduler Config
     activeSchedulerConfig: ISchedulerConfig;
     setActiveSchedulerConfigById: (id: string) => boolean;
 }
@@ -31,42 +30,42 @@ export const useSchedulerConfigStore = create<SchedulerConfigState>()(
                         name: "Pomodoro",
                         schedule: [
                             {
-                                targetDuration: new Date(25 * 60 * 1000),
+                                targetDuration: 25 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: false,
                             },
                             {
-                                targetDuration: new Date(5 * 60 * 1000),
+                                targetDuration: 5 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: true,
                             },
                             {
-                                targetDuration: new Date(25 * 60 * 1000),
+                                targetDuration: 25 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: false,
                             },
                             {
-                                targetDuration: new Date(5 * 60 * 1000),
+                                targetDuration: 5 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: true,
                             },
                             {
-                                targetDuration: new Date(25 * 60 * 1000),
+                                targetDuration: 25 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: false,
                             },
                             {
-                                targetDuration: new Date(5 * 60 * 1000),
+                                targetDuration: 5 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: true,
                             },
                             {
-                                targetDuration: new Date(25 * 60 * 1000),
+                                targetDuration: 25 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: false,
                             },
                             {
-                                targetDuration: new Date(15 * 60 * 1000),
+                                targetDuration: 15 * 60 * 1000,
                                 timerType: TimerType.countdown,
                                 isBreak: true,
                             },
@@ -77,12 +76,12 @@ export const useSchedulerConfigStore = create<SchedulerConfigState>()(
                         name: "Stopwatch",
                         schedule: [
                             {
-                                targetDuration: new Date(5 * 60 * 1000),
+                                targetDuration: 5 * 60 * 1000,
                                 timerType: TimerType.stopwatch,
                                 isBreak: false,
                             },
                             {
-                                targetDuration: new Date(0),
+                                targetDuration: 0,
                                 timerType: TimerType.stopwatch,
                                 isBreak: true,
                             },
@@ -169,42 +168,42 @@ export const useSchedulerConfigStore = create<SchedulerConfigState>()(
                     name: "Pomodoro",
                     schedule: [
                         {
-                            targetDuration: new Date(25 * 60 * 1000),
+                            targetDuration: 25 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: false,
                         },
                         {
-                            targetDuration: new Date(5 * 60 * 1000),
+                            targetDuration: 5 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: true,
                         },
                         {
-                            targetDuration: new Date(25 * 60 * 1000),
+                            targetDuration: 25 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: false,
                         },
                         {
-                            targetDuration: new Date(5 * 60 * 1000),
+                            targetDuration: 5 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: true,
                         },
                         {
-                            targetDuration: new Date(25 * 60 * 1000),
+                            targetDuration: 25 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: false,
                         },
                         {
-                            targetDuration: new Date(5 * 60 * 1000),
+                            targetDuration: 5 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: true,
                         },
                         {
-                            targetDuration: new Date(25 * 60 * 1000),
+                            targetDuration: 25 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: false,
                         },
                         {
-                            targetDuration: new Date(15 * 60 * 1000),
+                            targetDuration: 15 * 60 * 1000,
                             timerType: TimerType.countdown,
                             isBreak: true,
                         },

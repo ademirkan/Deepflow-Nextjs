@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import CircularProgress from "../CircularProgress";
-import { Time } from "../../Typescript/types/Time";
+import { Duration } from "../../Typescript/types/Duration";
 import styles from "../../styles/CircularTimerView.module.css";
 import { formatTime } from "../../helpers/formatTime";
 import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
@@ -41,14 +41,7 @@ export default function CircularCountdownView(
                 {props.labelArea}
 
                 <TextTimer
-                    time={
-                        props.targetDuration instanceof Date
-                            ? new Date(
-                                  props.targetDuration.getTime() -
-                                      props.elapsedTime.getTime()
-                              )
-                            : props.targetDuration
-                    }
+                    duration={props.targetDuration - props.elapsedTime}
                     style={{ color: "var(--text-color)" }}
                 />
                 {overtimeMs === 0 ? (
@@ -94,14 +87,14 @@ export default function CircularCountdownView(
 }
 
 interface ITextTimerProps {
-    time: Time;
+    duration: Duration;
     style: object;
 }
 
 function TextTimer(props: ITextTimerProps) {
     return (
         <div className={styles.textTimer} style={props.style}>
-            {formatTime(props.time)}
+            {formatTime(props.duration)}
         </div>
     );
 }
