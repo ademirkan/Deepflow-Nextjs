@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { SettingsContext } from "../contexts/SettingsContext";
 import { TimerType } from "../Typescript/enums/TimerType";
 import { isEqual } from "lodash";
 import TextButton from "./Buttons/TextButton";
-import { TimerStateContext } from "../contexts/TimerStateContext";
+import { useSchedulerConfigStore } from "../store/useSchedulerConfigStore";
+import { useAlarmStore } from "../store/useAlarmStore";
+import { useTimerStatusStore } from "../store/useTimerStatusStore";
 
 const POMODORO_PRESETS = {
     15: [
@@ -158,20 +158,31 @@ const POMODORO_PRESETS = {
 };
 
 export function QuickConfig() {
-    const { schedulerSettings, alarmSetting, setAlarmSetting } =
-        useContext(SettingsContext);
-
-    const {
+    const [
         activeSchedulerConfig,
         setActiveSchedulerConfigById,
         updateSchedulerConfig,
-    } = schedulerSettings;
+    ] = useSchedulerConfigStore((state) => [
+        state.activeSchedulerConfig,
+        state.setActiveSchedulerConfigById,
+        state.updateSchedulerConfig,
+    ]);
 
-    const { isRunning, isStarted } = useContext(TimerStateContext);
+    const [isAlarmEnabled, setIsAlarmEnabled] = useAlarmStore((state) => [
+        state.isAlarmEnabled,
+        state.setIsAlarmEnabled,
+    ]);
+
+    const [isTimerRunning, isTimerStarted] = useTimerStatusStore((state) => [
+        state.isTimerRunning,
+        state.isTimerStarted,
+    ]);
 
     return (
         <div
-            className={`${isRunning ? "animated-hidden" : "animated-visible"}`}
+            className={`${
+                isTimerRunning ? "animated-hidden" : "animated-visible"
+            }`}
         >
             <span className="flex gap-1 justify-end">
                 <TextButton
@@ -255,9 +266,9 @@ export function QuickConfig() {
             )}
             <span className="flex gap-2 justify-end">
                 <TextButton
-                    isActive={alarmSetting}
+                    isActive={isAlarmEnabled}
                     onClick={() => {
-                        setAlarmSetting(!alarmSetting);
+                        setIsAlarmEnabled(!isAlarmEnabled);
                     }}
                 >
                     alarm

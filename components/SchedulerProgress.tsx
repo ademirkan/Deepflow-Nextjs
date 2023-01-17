@@ -1,12 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { SchedulerContext } from "../contexts/SchedulerContext";
-import { SettingsContext } from "../contexts/SettingsContext";
+import { useEffect, useState } from "react";
+import { useScheduler } from "../hooks/newUseScheduler";
+import { useSchedulerConfigStore } from "../store/useSchedulerConfigStore";
 import TextButton from "./Buttons/TextButton";
 
 export const SchedulerProgress = (props: any) => {
-    const { schedulerSettings } = useContext(SettingsContext);
-    const { activeSchedulerConfig } = schedulerSettings;
-    const { scheduleIndex, resetSchedule } = useContext(SchedulerContext);
+    const activeSchedulerConfig = useSchedulerConfigStore(
+        (state) => state.activeSchedulerConfig
+    );
+
+    const { scheduleIndex, reset } = useScheduler();
+
     const [schedule, setSchedule] = useState(activeSchedulerConfig.schedule);
 
     useEffect(() => {
@@ -76,7 +79,7 @@ export const SchedulerProgress = (props: any) => {
                             <i className="fa-solid fa-rotate-right"></i>
                         </div>
                     }
-                    onClick={resetSchedule}
+                    onClick={reset}
                 ></TextButton>
             </div>
         </div>

@@ -1,5 +1,7 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
+import { useEffect } from "react";
+import { useThemeStore } from "../store/useThemeStore";
 
 export default function Document() {
     return (

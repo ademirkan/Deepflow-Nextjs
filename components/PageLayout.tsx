@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ReactElement, ReactNode, useContext } from "react";
+import { ReactElement, ReactNode } from "react";
 import TextButton from "./Buttons/TextButton";
 import _INDEX from "../styles/themes/_INDEX.json";
-import { ThemeContext } from "../contexts/ThemeContext";
 import styles from "../styles/PageLayout.module.css";
+import { useThemeStore } from "../store/useThemeStore";
 
 interface IProps {
     isTimerActive?: boolean;
@@ -12,8 +12,9 @@ interface IProps {
 }
 
 export default function PageLayout(props: IProps) {
-    const { theme, setThemeByName } = useContext(ThemeContext);
-    const handleTheme = () => {
+    const themeName = useThemeStore((state) => state.activeThemeName);
+    const setThemeByName = useThemeStore((state) => state.setActiveThemeName);
+    const handleThemeClick = () => {
         // choose random index in range of _INDEX
         const index = Math.floor(Math.random() * _INDEX.length);
         // get theme from _INDEX
@@ -71,10 +72,10 @@ export default function PageLayout(props: IProps) {
                         Ambience
                     </TextButton>
                     <TextButton
-                        onClick={handleTheme}
+                        onClick={handleThemeClick}
                         icon={<i className="fa-solid fa-palette"></i>}
                     >
-                        {theme}
+                        {themeName}
                     </TextButton>
                 </div>
             </footer>

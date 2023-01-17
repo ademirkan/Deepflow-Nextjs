@@ -1,11 +1,7 @@
-import { useContext } from "react";
 import CircularCountdownView from "../components/TimerViews/CircularCountdownView";
 import CircularStopwatchView from "../components/TimerViews/CircularStopwatchView";
 import { SessionLabel } from "../components/SessionLabel";
-import { SchedulerContext } from "../contexts/SchedulerContext";
-import { SessionsContext } from "../contexts/SessionsContext";
-import { SettingsContext } from "../contexts/SettingsContext";
-import { TimerStateContext } from "../contexts/TimerStateContext";
+
 import { TimerType } from "../Typescript/enums/TimerType";
 import { ITimerCallbacks } from "../Typescript/interfaces/ITimerCallbacks";
 import { ITimerProps } from "../Typescript/interfaces/ITimerProps";
@@ -13,6 +9,10 @@ import { ITimerViewProps } from "../Typescript/interfaces/ITimerViewProps";
 import { TimerView } from "../Typescript/Types/TimerView";
 import { TimerViewConstructor } from "../Typescript/types/TimerViewConstructor";
 import useSound from "use-sound";
+import { useScheduler } from "./newUseScheduler";
+import { useTimerStatusStore } from "../store/useTimerStatusStore";
+import { useSessionHistoryStore } from "../store/useSessionHistoryStore";
+import { useAlarmStore } from "../store/useAlarmStore";
 
 /**
     viewConstructor: TimerViewConstructor;
@@ -21,9 +21,11 @@ import useSound from "use-sound";
     overtime: boolean; 
  */
 export default function useTimerProps(): ITimerProps {
-    const { currentSession } = useContext(SchedulerContext);
-    const { overtimeSetting } = useContext(SettingsContext);
+    const { currentSession } = useScheduler();
     const callbacks = useTimerCallbacks();
+
+    // TODO: placeholder
+    const overtimeSetting = false;
 
     const VIEW_CONSTRUCTORS = {
         countdown: (props: ITimerViewProps) => {
@@ -71,22 +73,27 @@ export default function useTimerProps(): ITimerProps {
 }
 
 function useTimerCallbacks(): ITimerCallbacks {
-    // import SessionContext: pushSession
-    // import SchedulerContext: currentSession, next
-    // import SettingsContext: alarmSetting
+    const { currentSession, next } = useScheduler();
+    const [
+        isTimerRunning,
+        setIsTimerRunning,
+        isTimerStarted,
+        setIsTimerStarted,
+    ] = useTimerStatusStore((state) => [
+        state.isTimerRunning,
+        state.setIsTimerRunning,
+        state.isTimerStarted,
+        state.setIsTimerStarted,
+    ]);
+    const pushSession = useSessionHistoryStore((state) => state.pushSession);
+    const isAlarmEnabled = useAlarmStore((state) => state.isAlarmEnabled);
 
-    const { currentSession, next } = useContext(SchedulerContext);
-    const { isRunning, isStarted, setIsRunning, setIsStarted } =
-        useContext(TimerStateContext);
-    const { pushSession } = useContext(SessionsContext);
-    const { alarmSettings } = useContext(SettingsContext);
-
-    //@ts-ignore
-    const [alarm, { stop }] = useSound(alarmSettings.alarmSound);
+    // const {playAlarm, stopAlarm} = useAlarm()
 
     const callbacks: ITimerCallbacks = {
         onStart: (time) => {
-            setIsRunning(true);
+            setIsTimerRunning(true);
+            setIsTimerStarted(true);
             console.log("started");
         },
         onTick: (time, elapsedTime, startTime) => {
@@ -97,22 +104,22 @@ function useTimerCallbacks(): ITimerCallbacks {
              prompt MeasurementModal
                 onSubmit, pushSession(ratedSession)
              */
-            setIsRunning(false);
-            setIsStarted(false);
+            setIsTimerRunning(false);
+            setIsTimerStarted(false);
             next();
         },
         onReset: (time, elapsedTime, startTime) => {
             console.log("Reset!");
-            setIsRunning(false);
-            setIsStarted(false);
+            setIsTimerRunning(false);
+            setIsTimerStarted(false);
         },
         onPause: (time, elapsedTime, startTime) => {
             console.log("Stopped!");
-            setIsRunning(false);
+            setIsTimerRunning(false);
         },
         onResume: (time, elapsedTime, startTime) => {
             console.log("resumed");
-            setIsRunning(true);
+            setIsTimerRunning(true);
         },
 
         onTickEvents: [
@@ -142,9 +149,7 @@ function useTimerCallbacks(): ITimerCallbacks {
             },
             {
                 time: new Date(1100),
-                callback: (time) => {
-                    alarm();
-                },
+                callback: (time) => {},
             },
         ],
     };
