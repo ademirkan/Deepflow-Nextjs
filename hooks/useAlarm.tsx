@@ -23,6 +23,5 @@ export const useAlarm = () => {
     }, [alarmSoundName]);
 
     const [play, { stop }] = useSound(alarm, { volume: 0.5 });
-
     return { play, stop };
 };

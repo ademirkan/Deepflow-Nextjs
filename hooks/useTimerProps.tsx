@@ -10,8 +10,6 @@ import { TimerViewConstructor } from "../Typescript/types/TimerViewConstructor";
 import { useScheduler } from "./useScheduler";
 import { useTimerStatusStore } from "../stores/useTimerStatusStore";
 import { useSessionHistoryStore } from "../stores/useSessionHistoryStore";
-import { useAlarmStore } from "../stores/useAlarmStore";
-import { useAlarm } from "./useAlarm";
 
 export default function useTimerProps(): ITimerProps {
     const { currentSession } = useScheduler();
@@ -79,10 +77,6 @@ function useTimerCallbacks(): ITimerCallbacks {
         state.setIsTimerStarted,
     ]);
     const pushSession = useSessionHistoryStore((state) => state.pushSession);
-    const isAlarmEnabled = useAlarmStore((state) => state.isAlarmEnabled);
-    const { play, stop } = useAlarm();
-
-    // const {playAlarm, stopAlarm} = useAlarm()
 
     const callbacks: ITimerCallbacks = {
         onStart: (now) => {
@@ -124,9 +118,9 @@ function useTimerCallbacks(): ITimerCallbacks {
                 },
             },
             {
-                timeElapsed: currentSession.targetDuration,
+                timeElapsed: 10000,
                 callback: (time) => {
-                    play();
+                    console.log("10sec mark! " + time);
                 },
             },
         ],

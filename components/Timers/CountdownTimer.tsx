@@ -1,4 +1,6 @@
+import { useAlarm } from "../../hooks/useAlarm";
 import useStopwatch from "../../hooks/useStopwatch";
+import { useAlarmStore } from "../../stores/useAlarmStore";
 import { ICountdownTimerProps } from "../../Typescript/interfaces/ICountdownTimerProps";
 import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
 
@@ -6,26 +8,34 @@ const CountdownTimer: (props: ICountdownTimerProps) => JSX.Element = (
     props
 ) => {
     // Stopwatch hook w/ logic
-    const { elapsedTime, isRunning, isStarted, start, stop, reset, end } =
-        useStopwatch(props.callbacks);
+    const stopwatch = useStopwatch(props.callbacks);
 
     // useStopwatch props for stopwatch view constructor
     const hookProps: ITimerViewProps = {
         targetDuration: props.targetDuration,
-        isRunning,
-        isStarted,
-        elapsedTime,
-        onStart: start,
-        onPause: stop,
-        onReset: reset,
-        onFinish: end,
+        isRunning: stopwatch.isRunning,
+        isStarted: stopwatch.isStarted,
+        elapsedTime: stopwatch.elapsedTime,
+        onStart: stopwatch.start,
+        onPause: stopwatch.stop,
+        onReset: stopwatch.reset,
+        onFinish: stopwatch.end,
     };
 
     const timerView = props.viewConstructor({ ...hookProps });
+    const alarm = useAlarm();
+    const isAlarmEnabled = useAlarmStore((state) => state.isAlarmEnabled);
 
     // end countdown automatically
-    if (!props.overtime && elapsedTime > props.targetDuration) {
-        end();
+    if (!props.overtime && stopwatch.elapsedTime >= props.targetDuration) {
+        stopwatch.end();
+        if (isAlarmEnabled) {
+            alarm.play();
+            const alarmCallback = () => {
+                alarm.stop();
+            };
+            document.addEventListener("click", alarmCallback, { once: true });
+        }
     }
 
     return (
