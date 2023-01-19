@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import { useAlarm } from "../../hooks/useAlarm";
 import useStopwatch from "../../hooks/useStopwatch";
+import useTimerState from "../../hooks/useTimerState";
 import { useAlarmStore } from "../../stores/useAlarmStore";
+import { useTimerStateStore } from "../../stores/useTimerStateStore";
 import { ICountdownTimerProps } from "../../Typescript/interfaces/ICountdownTimerProps";
 import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
 
@@ -9,6 +12,13 @@ const CountdownTimer: (props: ICountdownTimerProps) => JSX.Element = (
 ) => {
     // Stopwatch hook w/ logic
     const stopwatch = useStopwatch(props.callbacks);
+    const { resetRequested, setResetRequested } = useTimerState();
+    useEffect(() => {
+        if (resetRequested) {
+            stopwatch.reset();
+            setResetRequested(false);
+        }
+    }, [resetRequested]);
 
     // useStopwatch props for stopwatch view constructor
     const hookProps: ITimerViewProps = {

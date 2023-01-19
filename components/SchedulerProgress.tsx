@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useScheduler } from "../hooks/useScheduler";
+import useTimerState from "../hooks/useTimerState";
 import { useSchedulerStore } from "../stores/useSchedulerStore";
 import TextButton from "./Buttons/TextButton";
 
@@ -9,6 +10,7 @@ export const SchedulerProgress = (props: any) => {
     );
     const { scheduleIndex, reset } = useScheduler();
     const [schedule, setSchedule] = useState(activeSchedulerConfig.schedule);
+    const { setResetRequested } = useTimerState();
 
     useEffect(() => {
         setSchedule(activeSchedulerConfig.schedule);
@@ -17,6 +19,11 @@ export const SchedulerProgress = (props: any) => {
     // number of dots = len(scheduler)
     const circleStyle = "h-3 w-3 mx-0.5";
     const ICON_RADIUS = "22px";
+
+    const handleReset = () => {
+        reset();
+        setResetRequested(true);
+    };
 
     return (
         <div className="relative flex flex-row justify-center items-center w-72">
@@ -76,7 +83,7 @@ export const SchedulerProgress = (props: any) => {
                             <i className="fa-solid fa-rotate-right"></i>
                         </div>
                     }
-                    onClick={reset}
+                    onClick={handleReset}
                 ></TextButton>
             </div>
         </div>

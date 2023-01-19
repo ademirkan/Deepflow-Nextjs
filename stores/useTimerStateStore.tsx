@@ -6,6 +6,8 @@ interface TimerStateState {
     setIsTimerRunning: (isRunning: boolean) => void;
     isTimerStarted: boolean;
     setIsTimerStarted: (isStarted: boolean) => void;
+    resetRequested: boolean;
+    setResetRequested: (resetRequested: boolean) => void;
 }
 
 export const useTimerStateStore = create<TimerStateState>()(
@@ -19,6 +21,9 @@ export const useTimerStateStore = create<TimerStateState>()(
                 isTimerStarted: false,
                 setIsTimerStarted: (isStarted) =>
                     set((state) => ({ isTimerStarted: isStarted })),
+                resetRequested: false,
+                setResetRequested: (resetRequested) =>
+                    set((state) => ({ resetRequested: resetRequested })),
             }),
             {
                 name: "timer-status-storage",

@@ -7,12 +7,17 @@ export default function useTimerState() {
         setIsTimerRunning,
         isTimerStarted,
         setIsTimerStarted,
+        resetRequested,
+        setResetRequested,
     ] = useTimerStateStore((state) => [
         state.isTimerRunning,
         state.setIsTimerRunning,
 
         state.isTimerStarted,
         state.setIsTimerStarted,
+
+        state.resetRequested,
+        state.setResetRequested,
     ]);
 
     useEffect(() => {
@@ -36,5 +41,7 @@ export default function useTimerState() {
         isTimerStarted,
         setIsTimerRunning,
         setIsTimerStarted,
+        resetRequested,
+        setResetRequested,
     };
 }
