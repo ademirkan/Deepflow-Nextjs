@@ -2,10 +2,10 @@ import PageLayout from "../components/PageLayout";
 import { QuickConfig } from "../components/QuickConfig";
 import { SchedulerProgress } from "../components/SchedulerProgress";
 import { Timer } from "../components/Timers/Timer";
-import { useTimerStatusStore } from "../stores/useTimerStatusStore";
+import useTimerState from "../hooks/useTimerState";
 
 export default function TimerPage() {
-    const isTimerRunning = useTimerStatusStore((state) => state.isTimerRunning);
+    const { isTimerRunning } = useTimerState();
     return (
         <>
             <PageLayout

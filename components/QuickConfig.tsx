@@ -3,7 +3,7 @@ import { isEqual } from "lodash";
 import TextButton from "./Buttons/TextButton";
 import { useSchedulerStore } from "../stores/useSchedulerStore";
 import { useAlarmStore } from "../stores/useAlarmStore";
-import { useTimerStatusStore } from "../stores/useTimerStatusStore";
+import { useTimerStateStore } from "../stores/useTimerStateStore";
 
 const POMODORO_PRESETS = {
     15: [
@@ -173,7 +173,7 @@ export function QuickConfig() {
         state.setIsAlarmEnabled,
     ]);
 
-    const [isTimerRunning, isTimerStarted] = useTimerStatusStore((state) => [
+    const [isTimerRunning, isTimerStarted] = useTimerStateStore((state) => [
         state.isTimerRunning,
         state.isTimerStarted,
     ]);

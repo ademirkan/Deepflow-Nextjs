@@ -8,7 +8,7 @@ import { ITimerProps } from "../Typescript/interfaces/ITimerProps";
 import { ITimerViewProps } from "../Typescript/interfaces/ITimerViewProps";
 import { TimerViewConstructor } from "../Typescript/types/TimerViewConstructor";
 import { useScheduler } from "./useScheduler";
-import { useTimerStatusStore } from "../stores/useTimerStatusStore";
+import { useTimerStateStore } from "../stores/useTimerStateStore";
 import { useSessionHistoryStore } from "../stores/useSessionHistoryStore";
 
 export default function useTimerProps(): ITimerProps {
@@ -70,7 +70,7 @@ function useTimerCallbacks(): ITimerCallbacks {
         setIsTimerRunning,
         isTimerStarted,
         setIsTimerStarted,
-    ] = useTimerStatusStore((state) => [
+    ] = useTimerStateStore((state) => [
         state.isTimerRunning,
         state.setIsTimerRunning,
         state.isTimerStarted,

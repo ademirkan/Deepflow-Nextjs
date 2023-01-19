@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useSound from "use-sound";
-import PageLayout from "../components/PageLayout";
 import { useAlarmStore } from "../stores/useAlarmStore";
 
 //@ts-ignore
