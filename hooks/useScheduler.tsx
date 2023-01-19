@@ -24,6 +24,7 @@ export const useScheduler: () => Scheduler = () => {
     };
 
     const reset = () => {
+        console.log("yeet");
         setScheduleIndex(0);
     };
 
