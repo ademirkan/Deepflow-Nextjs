@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSchedulerConfigStore } from "../store/useSchedulerConfigStore";
+import { useSchedulerStore } from "../stores/useSchedulerStore";
 import { TimerSession } from "../Typescript/types/TimerSession";
 
 interface Scheduler {
@@ -11,15 +11,18 @@ interface Scheduler {
 
 // returns current active scheduler
 export const useScheduler: () => Scheduler = () => {
-    const activeSchedulerConfig = useSchedulerConfigStore(
-        (state) => state.activeSchedulerConfig
-    );
+    const [activeSchedulerConfig, scheduleIndex, setScheduleIndex] =
+        useSchedulerStore((state) => [
+            state.activeSchedulerConfig,
+            state.scheduleIndex,
+            state.setScheduleIndex,
+        ]);
 
     const { schedule } = activeSchedulerConfig;
-    const [scheduleIndex, setScheduleIndex] = useState(0);
     const next = () => {
-        setScheduleIndex((prevIndex) => (prevIndex + 1) % schedule.length);
+        setScheduleIndex((scheduleIndex + 1) % schedule.length);
     };
+
     const reset = () => {
         setScheduleIndex(0);
     };

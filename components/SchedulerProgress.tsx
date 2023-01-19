@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import { useScheduler } from "../hooks/newUseScheduler";
-import { useSchedulerConfigStore } from "../store/useSchedulerConfigStore";
+import { useScheduler } from "../hooks/useScheduler";
+import { useSchedulerStore } from "../stores/useSchedulerStore";
 import TextButton from "./Buttons/TextButton";
 
 export const SchedulerProgress = (props: any) => {
-    const activeSchedulerConfig = useSchedulerConfigStore(
+    const activeSchedulerConfig = useSchedulerStore(
         (state) => state.activeSchedulerConfig
     );
 
     const { scheduleIndex, reset } = useScheduler();
-    console.log(scheduleIndex);
-
     const [schedule, setSchedule] = useState(activeSchedulerConfig.schedule);
 
     useEffect(() => {
@@ -32,7 +30,6 @@ export const SchedulerProgress = (props: any) => {
                         return !session.isBreak;
                     })
                     .map((_, i) => {
-                        console.log(i);
                         return (
                             <svg
                                 key={i}

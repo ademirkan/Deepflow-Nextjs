@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from "react";
-import { useScheduler } from "../../hooks/newUseScheduler";
+import { useScheduler } from "../../hooks/useScheduler";
 import useTimerProps from "../../hooks/useTimerProps";
 import { TimerType } from "../../Typescript/enums/TimerType";
 import CountdownTimer from "./CountdownTimer";

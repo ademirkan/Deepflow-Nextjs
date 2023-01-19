@@ -1,9 +1,9 @@
 import { TimerType } from "../Typescript/enums/TimerType";
 import { isEqual } from "lodash";
 import TextButton from "./Buttons/TextButton";
-import { useSchedulerConfigStore } from "../store/useSchedulerConfigStore";
-import { useAlarmStore } from "../store/useAlarmStore";
-import { useTimerStatusStore } from "../store/useTimerStatusStore";
+import { useSchedulerStore } from "../stores/useSchedulerStore";
+import { useAlarmStore } from "../stores/useAlarmStore";
+import { useTimerStatusStore } from "../stores/useTimerStatusStore";
 
 const POMODORO_PRESETS = {
     15: [
@@ -162,7 +162,7 @@ export function QuickConfig() {
         activeSchedulerConfig,
         setActiveSchedulerConfigById,
         updateSchedulerConfig,
-    ] = useSchedulerConfigStore((state) => [
+    ] = useSchedulerStore((state) => [
         state.activeSchedulerConfig,
         state.setActiveSchedulerConfigById,
         state.updateSchedulerConfig,

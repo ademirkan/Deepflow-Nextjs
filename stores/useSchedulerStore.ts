@@ -4,7 +4,7 @@ import { TimerType } from "../Typescript/enums/TimerType";
 import { ISchedulerConfig } from "../Typescript/interfaces/ISchedulerConfig";
 import { TimerSession } from "../Typescript/types/TimerSession";
 
-interface SchedulerConfigState {
+interface SchedulerPreferences {
     // Scheduler Config CRUD Operations
     allSchedulerConfigs: ISchedulerConfig[];
     getSchedulerConfigById: (id: string) => ISchedulerConfig | undefined;
@@ -15,15 +15,23 @@ interface SchedulerConfigState {
     deleteSchedulerConfig: (id: string) => boolean;
     createSchedulerConfig: (config: Omit<ISchedulerConfig, "id">) => boolean;
 
-    // // // Active Scheduler Config
+    // Active Scheduler Config
     activeSchedulerConfig: ISchedulerConfig;
     setActiveSchedulerConfigById: (id: string) => boolean;
 }
 
-export const useSchedulerConfigStore = create<SchedulerConfigState>()(
+interface SchedulerState {
+    scheduleIndex: number;
+    setScheduleIndex: (index: number) => void;
+}
+
+export const useSchedulerStore = create<
+    SchedulerPreferences & SchedulerState
+>()(
     devtools(
         persist(
             (set, get) => ({
+                // PREFERENCES
                 allSchedulerConfigs: [
                     {
                         id: "POMODORO_SCHEDULER",
@@ -216,6 +224,12 @@ export const useSchedulerConfigStore = create<SchedulerConfigState>()(
                         return true;
                     }
                     return false;
+                },
+
+                // STATE
+                scheduleIndex: 0,
+                setScheduleIndex: (index: number) => {
+                    set((state) => ({ scheduleIndex: index }));
                 },
             }),
             {

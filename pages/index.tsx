@@ -1,10 +1,8 @@
-import Head from "next/head";
-import Script from "next/script";
 import PageLayout from "../components/PageLayout";
 import { QuickConfig } from "../components/QuickConfig";
 import { SchedulerProgress } from "../components/SchedulerProgress";
 import { Timer } from "../components/Timers/Timer";
-import { useTimerStatusStore } from "../store/useTimerStatusStore";
+import { useTimerStatusStore } from "../stores/useTimerStatusStore";
 
 export default function TimerPage() {
     const isTimerRunning = useTimerStatusStore((state) => state.isTimerRunning);

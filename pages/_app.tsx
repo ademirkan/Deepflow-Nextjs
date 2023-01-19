@@ -2,11 +2,11 @@ import Script from "next/script";
 import { useEffect } from "react";
 import PageLayout from "../components/PageLayout";
 
-import { useThemeStore } from "../store/useThemeStore";
+import { useThemeStore } from "../stores/useThemeStore";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: any) {
-    const activeThemeName = useThemeStore((state) => state.activeThemeName);
+    const activeThemeName = useThemeStore((state) => state.theme);
     console.log(activeThemeName);
     useEffect(() => {
         import(`../styles/themes/${activeThemeName}`).then((module) => {

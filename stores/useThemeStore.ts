@@ -2,16 +2,16 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 interface ThemeState {
-    activeThemeName: string;
-    setActiveThemeName: (theme: string) => void;
+    theme: string;
+    setThemeByName: (theme: string) => void;
 }
 
 export const useThemeStore = create<ThemeState>()(
     devtools(
         persist(
             (set) => ({
-                activeThemeName: "light",
-                setActiveThemeName: (themeName) => {
+                theme: "light",
+                setThemeByName: (themeName) => {
                     import(`../styles/themes/${themeName}`).then((module) => {
                         const theme = module.default;
                         Object.keys(theme).forEach((key) => {
@@ -23,7 +23,7 @@ export const useThemeStore = create<ThemeState>()(
                         });
                     });
                     set((state) => ({
-                        activeThemeName: themeName,
+                        theme: themeName,
                     }));
                 },
             }),

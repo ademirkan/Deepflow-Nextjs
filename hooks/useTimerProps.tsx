@@ -7,10 +7,10 @@ import { ITimerCallbacks } from "../Typescript/interfaces/ITimerCallbacks";
 import { ITimerProps } from "../Typescript/interfaces/ITimerProps";
 import { ITimerViewProps } from "../Typescript/interfaces/ITimerViewProps";
 import { TimerViewConstructor } from "../Typescript/types/TimerViewConstructor";
-import { useScheduler } from "./newUseScheduler";
-import { useTimerStatusStore } from "../store/useTimerStatusStore";
-import { useSessionHistoryStore } from "../store/useSessionHistoryStore";
-import { useAlarmStore } from "../store/useAlarmStore";
+import { useScheduler } from "./useScheduler";
+import { useTimerStatusStore } from "../stores/useTimerStatusStore";
+import { useSessionHistoryStore } from "../stores/useSessionHistoryStore";
+import { useAlarmStore } from "../stores/useAlarmStore";
 
 export default function useTimerProps(): ITimerProps {
     const { currentSession } = useScheduler();
