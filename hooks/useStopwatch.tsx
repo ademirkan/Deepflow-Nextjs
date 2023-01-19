@@ -12,6 +12,7 @@ export default function useStopwatch(
     const [isStarted, setIsStarted] = useState(false); // true if timer has started, false when reset
 
     //Refs
+    const elapsedTimeRef = useRef(0); // synced with elapsedTime, used to track elapsed time in tick() w/o closure issues
     const lastUpdateRef = useRef(new Date(0)); // tracks Date of last update to measure tick delta
     const callbacksRef = useRef(callbacks); // tracks callbacks: ITimerCallbacks object
     const startTimeRef = useRef(new Date(0)); // tracks initial start time
@@ -64,27 +65,30 @@ export default function useStopwatch(
      */
     function tick() {
         let now = new Date();
-        let nextTime = 0;
         let deltaMs = delta(lastUpdateRef.current, now);
         lastUpdateRef.current = now;
 
         setElapsedTime((prevTime) => {
-            nextTime = prevTime + deltaMs;
-            return nextTime;
+            elapsedTimeRef.current = prevTime + deltaMs;
+            return elapsedTimeRef.current;
         });
 
         if (callbacksRef.current.onTick !== undefined) {
-            callbacksRef.current.onTick(elapsedTime, now, startTimeRef.current);
+            callbacksRef.current.onTick(
+                now,
+                elapsedTimeRef.current,
+                startTimeRef.current
+            );
         }
 
         if (
             eventsRef.current.length &&
             eventsRef.current[eventsRef.current.length - 1].timeElapsed <=
-                nextTime
+                elapsedTimeRef.current
         ) {
             eventsRef.current
                 .pop()
-                ?.callback(now, startTimeRef.current, elapsedTime);
+                ?.callback(now, elapsedTimeRef.current, startTimeRef.current);
         }
     }
 
@@ -100,8 +104,8 @@ export default function useStopwatch(
             setIsStarted(true);
         } else {
             callbacksRef.current.onResume?.(
-                elapsedTime,
                 currentTime,
+                elapsedTime,
                 startTimeRef.current
             );
         }
@@ -120,8 +124,8 @@ export default function useStopwatch(
     function stop() {
         setIsRunning(false);
         callbacksRef.current.onPause?.(
-            elapsedTime,
             new Date(),
+            elapsedTime,
             startTimeRef.current
         );
     }
@@ -131,8 +135,8 @@ export default function useStopwatch(
      */
     function reset() {
         callbacksRef.current.onReset?.(
-            elapsedTime,
             new Date(),
+            elapsedTime,
             startTimeRef.current
         );
         eventsRef.current = (
@@ -143,6 +147,7 @@ export default function useStopwatch(
         setIsStarted(false);
         setIsRunning(false);
         setElapsedTime(0);
+        elapsedTimeRef.current = 0;
     }
 
     /**
@@ -150,11 +155,12 @@ export default function useStopwatch(
      */
     function end() {
         setElapsedTime(0);
+        elapsedTimeRef.current = 0;
         setIsStarted(false);
         setIsRunning(false);
         callbacksRef.current.onEnd?.(
-            elapsedTime,
             new Date(),
+            elapsedTime,
             startTimeRef.current
         );
     }

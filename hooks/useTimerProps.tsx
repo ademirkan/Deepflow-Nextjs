@@ -11,6 +11,7 @@ import { useScheduler } from "./useScheduler";
 import { useTimerStatusStore } from "../stores/useTimerStatusStore";
 import { useSessionHistoryStore } from "../stores/useSessionHistoryStore";
 import { useAlarmStore } from "../stores/useAlarmStore";
+import { useAlarm } from "./useAlarm";
 
 export default function useTimerProps(): ITimerProps {
     const { currentSession } = useScheduler();
@@ -79,19 +80,20 @@ function useTimerCallbacks(): ITimerCallbacks {
     ]);
     const pushSession = useSessionHistoryStore((state) => state.pushSession);
     const isAlarmEnabled = useAlarmStore((state) => state.isAlarmEnabled);
+    const { play, stop } = useAlarm();
 
     // const {playAlarm, stopAlarm} = useAlarm()
 
     const callbacks: ITimerCallbacks = {
-        onStart: (time) => {
+        onStart: (now) => {
             setIsTimerRunning(true);
             setIsTimerStarted(true);
             console.log("started");
         },
-        onTick: (time, elapsedTime, startTime) => {
-            console.log("Tick!", elapsedTime.getTime());
+        onTick: (now, elapsedTime, startTime) => {
+            console.log("Tick!", elapsedTime);
         },
-        onEnd: (time, elapsedTime, startTime) => {
+        onEnd: (now, elapsedTime, startTime) => {
             /**
              prompt MeasurementModal
                 onSubmit, pushSession(ratedSession)
@@ -100,25 +102,31 @@ function useTimerCallbacks(): ITimerCallbacks {
             setIsTimerStarted(false);
             next();
         },
-        onReset: (time, elapsedTime, startTime) => {
+        onReset: (now, elapsedTime, startTime) => {
             console.log("Reset!");
             setIsTimerRunning(false);
             setIsTimerStarted(false);
         },
-        onPause: (time, elapsedTime, startTime) => {
+        onPause: (now, elapsedTime, startTime) => {
             console.log("Stopped!");
             setIsTimerRunning(false);
         },
-        onResume: (time, elapsedTime, startTime) => {
+        onResume: (now, elapsedTime, startTime) => {
             console.log("resumed");
             setIsTimerRunning(true);
         },
 
         onTickEvents: [
             {
-                timeElapsed: 10000,
+                timeElapsed: 5000,
                 callback: (time) => {
-                    console.log("10sec mark! " + time);
+                    console.log("5sec mark! " + time);
+                },
+            },
+            {
+                timeElapsed: currentSession.targetDuration,
+                callback: (time) => {
+                    play();
                 },
             },
         ],

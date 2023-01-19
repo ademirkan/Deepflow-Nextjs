@@ -10,7 +10,7 @@ export const useThemeStore = create<ThemeState>()(
     devtools(
         persist(
             (set) => ({
-                theme: "light",
+                theme: "hammerhead",
                 setThemeByName: (themeName) => {
                     import(`../styles/themes/${themeName}`).then((module) => {
                         const theme = module.default;

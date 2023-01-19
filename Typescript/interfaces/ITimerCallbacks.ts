@@ -1,15 +1,15 @@
-import { Time } from "../types/Duration";
+import { Duration } from "../types/Duration";
 import { TimerEvent } from "../types/TimerEvent";
 
 /**
  * Interface for Timer callbacks object
  */
 export interface ITimerCallbacks {
-    onStart?: (currentTime: Time) => void; // called on initial timer start
-    onTick?: (elapsedTime: Time, currentTime: Time, startTime: Time) => void; // called on each tick interval
-    onResume?: (elapsedTime: Time, currentTime: Time, startTime: Time) => void; // called on each subsequent resume
-    onPause?: (elapsedTime: Time, currentTime: Time, startTime: Time) => void; // called on each timer pause
-    onEnd?: (elapsedTime: Time, currentTime: Time, startTime: Time) => void; // called on each
-    onReset?: (elapsedTime: Time, currentTime: Time, startTime: Time) => void; // called on timer reset
+    onStart?: (now: Date, elapsedTime?: Duration) => void; // called on initial timer start
+    onTick?: (now: Date, elapsedTime: Duration, startTime: Date) => void; // called on each tick interval
+    onResume?: (now: Date, elapsedTime: Duration, startTime: Date) => void; // called on each subsequent resume
+    onPause?: (now: Date, elapsedTime: Duration, startTime: Date) => void; // called on each timer pause
+    onEnd?: (now: Date, elapsedTime: Duration, startTime: Date) => void; // called on each
+    onReset?: (now: Date, elapsedTime: Duration, startTime: Date) => void; // called on timer reset
     onTickEvents?: Array<TimerEvent>; // scheduled timer events: (time, callback)
 }
