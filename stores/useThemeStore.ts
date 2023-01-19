@@ -12,16 +12,6 @@ export const useThemeStore = create<ThemeState>()(
             (set) => ({
                 theme: "hammerhead",
                 setThemeByName: (themeName) => {
-                    import(`../styles/themes/${themeName}`).then((module) => {
-                        const theme = module.default;
-                        Object.keys(theme).forEach((key) => {
-                            const value = theme[key];
-                            document.documentElement.style.setProperty(
-                                key,
-                                value
-                            );
-                        });
-                    });
                     set((state) => ({
                         theme: themeName,
                     }));

@@ -226,7 +226,7 @@ export const useSchedulerStore = create<
                     return false;
                 },
 
-                // STATE
+                // SHARED STATE
                 scheduleIndex: 0,
                 setScheduleIndex: (index: number) => {
                     set((state) => ({ scheduleIndex: index }));

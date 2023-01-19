@@ -3,7 +3,7 @@ import { ReactElement, ReactNode } from "react";
 import TextButton from "./Buttons/TextButton";
 import _INDEX from "../styles/themes/_INDEX.json";
 import styles from "../styles/PageLayout.module.css";
-import { useThemeStore } from "../stores/useThemeStore";
+import { useTheme } from "../hooks/useTheme";
 
 interface IProps {
     isTimerActive?: boolean;
@@ -12,8 +12,7 @@ interface IProps {
 }
 
 export default function PageLayout(props: IProps) {
-    const themeName = useThemeStore((state) => state.theme);
-    const setThemeByName = useThemeStore((state) => state.setThemeByName);
+    const [themeName, setThemeByName] = useTheme();
     const handleThemeClick = () => {
         // choose random index in range of _INDEX
         const index = Math.floor(Math.random() * _INDEX.length);

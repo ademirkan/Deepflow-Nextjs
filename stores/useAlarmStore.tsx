@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 //@ts-ignore
-import defaultSound from "../public/sounds/gentle.mp3";
+import defaultSound from "../public/sounds/gentle_short";
 
 interface AlarmPreferences {
     isAlarmEnabled: boolean;
@@ -19,7 +19,7 @@ const DEFAULT_STATE: AlarmPreferences = {
     volume: 0.5,
     setVolume: (percent) => {},
 
-    alarmSoundName: "gentle.mp3",
+    alarmSoundName: "gentle_short.mp3",
     setAlarmSoundByName: (name) => {},
 };
 export const useAlarmStore = create<AlarmPreferences>()(

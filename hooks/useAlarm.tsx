@@ -3,7 +3,7 @@ import useSound from "use-sound";
 import { useAlarmStore } from "../stores/useAlarmStore";
 
 //@ts-ignore
-import defaultAlarm from "../public/sounds/gentle.mp3";
+import defaultAlarm from "../public/sounds/gentle_short.mp3";
 
 export const useAlarm = () => {
     const [alarmSoundName, _setAlarmSoundByName, volume] = useAlarmStore(

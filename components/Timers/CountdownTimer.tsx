@@ -12,7 +12,7 @@ const CountdownTimer: (props: ICountdownTimerProps) => JSX.Element = (
 
     // useStopwatch props for stopwatch view constructor
     const hookProps: ITimerViewProps = {
-        targetDuration: props.targetDuration,
+        targetDuration: 3000,
         isRunning: stopwatch.isRunning,
         isStarted: stopwatch.isStarted,
         elapsedTime: stopwatch.elapsedTime,
@@ -27,7 +27,7 @@ const CountdownTimer: (props: ICountdownTimerProps) => JSX.Element = (
     const isAlarmEnabled = useAlarmStore((state) => state.isAlarmEnabled);
 
     // end countdown automatically
-    if (!props.overtime && stopwatch.elapsedTime >= props.targetDuration) {
+    if (!props.overtime && stopwatch.elapsedTime >= 3000) {
         stopwatch.end();
         if (isAlarmEnabled) {
             alarm.play();

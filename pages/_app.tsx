@@ -1,6 +1,5 @@
 import Script from "next/script";
 import { useEffect } from "react";
-import PageLayout from "../components/PageLayout";
 
 import { useThemeStore } from "../stores/useThemeStore";
 import "../styles/globals.css";
