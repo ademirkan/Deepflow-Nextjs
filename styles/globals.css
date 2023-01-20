@@ -23,6 +23,10 @@ body {
     transition: background-color 150ms linear;
 }
 
+.button {
+    font-family: "Robotomono", monospace;
+}
+
 #__next {
     margin: auto !important;
     display: grid;

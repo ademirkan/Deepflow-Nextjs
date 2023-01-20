@@ -23,7 +23,7 @@ export const CircularStopwatchView = (props: ICircularStopwatchViewProps) => {
 
     const button = !props.isStarted ? (
         <div
-            className="flex transition-colors bg-sub text-bg hover:text-subalt active:text-subalt hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
+            className="flex button transition-colors bg-sub text-bg hover:text-subalt active:text-subalt hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
             onClick={props.onStart}
             onMouseDown={() => setCircleColor("var(--sub-color)")}
             onMouseUp={() => setCircleColor("var(--main-color)")}
@@ -32,14 +32,14 @@ export const CircularStopwatchView = (props: ICircularStopwatchViewProps) => {
         </div>
     ) : isFinishable ? (
         <div
-            className="flex transition-colors bg-sub hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
+            className="flex button transition-colors bg-sub text-bg hover:text-subalt active:text-subalt hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
             onClick={props.onFinish}
         >
             finish
         </div>
     ) : (
         <div
-            className="flex transition-colors bg-sub hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
+            className="flex button transition-colors bg-sub text-bg hover:text-subalt active:text-subalt hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
             onClick={props.onReset}
         >
             quit
