@@ -264,10 +264,7 @@ export function QuickConfig() {
                             15
                         </TextButton>
                         <TextButton
-                            isActive={isEqual(
-                                activeSchedulerConfig.schedule,
-                                activeConfigShorthand == 25
-                            )}
+                            isActive={activeConfigShorthand == 25}
                             onClick={() => {
                                 updateSchedulerConfig("POMODORO_SCHEDULER", {
                                     name: "Pomodoro",
