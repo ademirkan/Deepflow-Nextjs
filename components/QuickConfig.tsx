@@ -158,6 +158,7 @@ const POMODORO_PRESETS = {
 };
 
 export function QuickConfig() {
+    // Scheduler Store
     const [
         activeSchedulerConfig,
         setActiveSchedulerConfigById,
@@ -168,15 +169,41 @@ export function QuickConfig() {
         state.updateSchedulerConfig,
     ]);
 
+    // Alarm Store
     const [isAlarmEnabled, setIsAlarmEnabled] = useAlarmStore((state) => [
         state.isAlarmEnabled,
         state.setIsAlarmEnabled,
     ]);
 
+    // Timer State Store
     const [isTimerRunning, isTimerStarted] = useTimerStateStore((state) => [
         state.isTimerRunning,
         state.isTimerStarted,
     ]);
+
+    const activeConfig = (() => {
+        if (activeSchedulerConfig.id === "POMODORO_SCHEDULER") {
+            if (isEqual(activeSchedulerConfig.schedule, POMODORO_PRESETS[15])) {
+                return 15;
+            } else if (
+                isEqual(activeSchedulerConfig.schedule, POMODORO_PRESETS[25])
+            ) {
+                return 25;
+            } else if (
+                isEqual(activeSchedulerConfig.schedule, POMODORO_PRESETS[50])
+            ) {
+                return 50;
+            } else if (
+                isEqual(activeSchedulerConfig.schedule, POMODORO_PRESETS[90])
+            ) {
+                return 90;
+            } else {
+                return "custom pomodoro";
+            }
+        } else {
+            return "stopwatch";
+        }
+    })();
 
     return (
         <div
@@ -207,10 +234,7 @@ export function QuickConfig() {
             {activeSchedulerConfig.id === "POMODORO_SCHEDULER" && (
                 <span className="flex gap-1 justify-end">
                     <TextButton
-                        isActive={isEqual(
-                            activeSchedulerConfig.schedule,
-                            POMODORO_PRESETS[15]
-                        )}
+                        isActive={activeConfig == 15}
                         onClick={() => {
                             updateSchedulerConfig("POMODORO_SCHEDULER", {
                                 name: "Pomodoro",
@@ -223,7 +247,7 @@ export function QuickConfig() {
                     <TextButton
                         isActive={isEqual(
                             activeSchedulerConfig.schedule,
-                            POMODORO_PRESETS[25]
+                            activeConfig == 25
                         )}
                         onClick={() => {
                             updateSchedulerConfig("POMODORO_SCHEDULER", {
@@ -235,10 +259,7 @@ export function QuickConfig() {
                         25
                     </TextButton>
                     <TextButton
-                        isActive={isEqual(
-                            activeSchedulerConfig.schedule,
-                            POMODORO_PRESETS[50]
-                        )}
+                        isActive={activeConfig == 50}
                         onClick={() => {
                             updateSchedulerConfig("POMODORO_SCHEDULER", {
                                 name: "Pomodoro",
@@ -249,10 +270,7 @@ export function QuickConfig() {
                         50
                     </TextButton>
                     <TextButton
-                        isActive={isEqual(
-                            activeSchedulerConfig.schedule,
-                            POMODORO_PRESETS[90]
-                        )}
+                        isActive={activeConfig == 90}
                         onClick={() => {
                             updateSchedulerConfig("POMODORO_SCHEDULER", {
                                 name: "Pomodoro",
@@ -262,6 +280,15 @@ export function QuickConfig() {
                     >
                         90
                     </TextButton>
+                    <TextButton
+                        isActive={activeConfig == "custom pomodoro"}
+                        onClick={() => {
+                            console.log("custom selected");
+                        }}
+                        icon={
+                            <i className="fa-solid fa-screwdriver-wrench"></i>
+                        }
+                    />
                 </span>
             )}
             <span className="flex gap-2 justify-end">
