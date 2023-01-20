@@ -251,7 +251,7 @@ export function QuickConfig() {
                     </TextButton>
                 </span>
                 {activeSchedulerConfig.id === "POMODORO_SCHEDULER" && (
-                    <span className="flex gap-1 justify-end">
+                    <span className="flex justify-end">
                         <TextButton
                             isActive={activeConfigShorthand == 15}
                             onClick={() => {
@@ -260,6 +260,7 @@ export function QuickConfig() {
                                     schedule: POMODORO_PRESETS[15],
                                 });
                             }}
+                            className="px-[2px]"
                         >
                             15
                         </TextButton>
@@ -271,6 +272,7 @@ export function QuickConfig() {
                                     schedule: POMODORO_PRESETS[25],
                                 });
                             }}
+                            className="px-[2px]"
                         >
                             25
                         </TextButton>
@@ -282,6 +284,7 @@ export function QuickConfig() {
                                     schedule: POMODORO_PRESETS[50],
                                 });
                             }}
+                            className="px-[2px]"
                         >
                             50
                         </TextButton>
@@ -293,6 +296,7 @@ export function QuickConfig() {
                                     schedule: POMODORO_PRESETS[90],
                                 });
                             }}
+                            className="px-[2px]"
                         >
                             90
                         </TextButton>
@@ -302,7 +306,7 @@ export function QuickConfig() {
                             }
                             onClick={handleCustomPomodoroClick}
                             icon={
-                                <i className="fa-solid pb-[2px] fa-screwdriver-wrench"></i>
+                                <i className="fa-solid pl-[2px] pb-[1px] fa-screwdriver-wrench"></i>
                             }
                         />
                     </span>

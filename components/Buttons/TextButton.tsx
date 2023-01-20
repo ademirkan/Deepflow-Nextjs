@@ -5,6 +5,7 @@ interface Props {
     size?: "sm" | "med" | "lg";
     icon?: React.ReactNode;
     onClick?: () => void;
+    className?: string;
     children?: string;
 }
 
@@ -13,7 +14,7 @@ export default function TextButton(props: Props) {
         <span
             className={`${styles.textBtn} ${props.isActive && styles.active} ${
                 props.size ? styles[props.size] : styles.sm
-            }`}
+            } ${props.className} `}
             onClick={props.onClick ? props.onClick : () => {}}
         >
             {props.icon && props.icon}
