@@ -286,7 +286,7 @@ export function QuickConfig() {
                             console.log("custom selected");
                         }}
                         icon={
-                            <i className="fa-solid fa-screwdriver-wrench"></i>
+                            <i className="fa-solid pb-[2px] fa-screwdriver-wrench"></i>
                         }
                     />
                 </span>
