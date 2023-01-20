@@ -11,23 +11,16 @@ interface TimerStateState {
 }
 
 export const useTimerStateStore = create<TimerStateState>()(
-    devtools(
-        persist(
-            (set) => ({
-                isTimerRunning: false,
-                setIsTimerRunning: (isRunning) =>
-                    set((state) => ({ isTimerRunning: isRunning })),
+    devtools((set) => ({
+        isTimerRunning: false,
+        setIsTimerRunning: (isRunning) =>
+            set((state) => ({ isTimerRunning: isRunning })),
 
-                isTimerStarted: false,
-                setIsTimerStarted: (isStarted) =>
-                    set((state) => ({ isTimerStarted: isStarted })),
-                resetRequested: false,
-                setResetRequested: (resetRequested) =>
-                    set((state) => ({ resetRequested: resetRequested })),
-            }),
-            {
-                name: "timer-status-storage",
-            }
-        )
-    )
+        isTimerStarted: false,
+        setIsTimerStarted: (isStarted) =>
+            set((state) => ({ isTimerStarted: isStarted })),
+        resetRequested: false,
+        setResetRequested: (resetRequested) =>
+            set((state) => ({ resetRequested: resetRequested })),
+    }))
 );
