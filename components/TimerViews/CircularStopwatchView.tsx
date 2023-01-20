@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import CircularProgress from "../CircularProgress";
 import styles from "../../styles/CircularTimerView.module.css";
 import { formatTime } from "../../helpers/formatTime";
@@ -19,16 +19,29 @@ export const CircularStopwatchView = (props: ICircularStopwatchViewProps) => {
     const isFinishable =
         props.isRunning && props.elapsedTime >= props.targetDuration;
 
+    const [circleColor, setCircleColor] = useState("var(--main-color)");
+
     const button = !props.isStarted ? (
-        <div className="button h-8 w-32 flex-grow-0" onClick={props.onStart}>
+        <div
+            className="flex transition-colors bg-sub hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
+            onClick={props.onStart}
+            onMouseDown={() => setCircleColor("var(--sub-color)")}
+            onMouseUp={() => setCircleColor("var(--main-color)")}
+        >
             start
         </div>
     ) : isFinishable ? (
-        <div className="button h-8 w-32 flex-grow-0" onClick={props.onFinish}>
+        <div
+            className="flex transition-colors bg-sub hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
+            onClick={props.onFinish}
+        >
             finish
         </div>
     ) : (
-        <div className="button h-8 w-32 flex-grow-0" onClick={props.onReset}>
+        <div
+            className="flex transition-colors bg-sub hover:bg-main active:bg-sub flex-row justify-center rounded-md items-center h-8 w-32 flex-grow-0"
+            onClick={props.onReset}
+        >
             quit
         </div>
     );
@@ -39,11 +52,7 @@ export const CircularStopwatchView = (props: ICircularStopwatchViewProps) => {
                 filledPercent={1}
                 thickness={0.03}
                 animationDuration={"0s"}
-                primaryColor={
-                    !props.isStarted || isFinishable
-                        ? "var(--main-color)"
-                        : "var(--sub-color)"
-                }
+                primaryColor={circleColor}
             />
 
             <div id={styles.innerUI}>
