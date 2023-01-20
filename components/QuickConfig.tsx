@@ -4,6 +4,8 @@ import TextButton from "./Buttons/TextButton";
 import { useSchedulerStore } from "../stores/useSchedulerStore";
 import { useAlarmStore } from "../stores/useAlarmStore";
 import { useTimerStateStore } from "../stores/useTimerStateStore";
+import { useState } from "react";
+import ReactModal from "react-modal";
 
 const POMODORO_PRESETS = {
     15: [
@@ -158,7 +160,7 @@ const POMODORO_PRESETS = {
 };
 
 export function QuickConfig() {
-    // Scheduler Store
+    // Stores
     const [
         activeSchedulerConfig,
         setActiveSchedulerConfigById,
@@ -168,20 +170,26 @@ export function QuickConfig() {
         state.setActiveSchedulerConfigById,
         state.updateSchedulerConfig,
     ]);
-
-    // Alarm Store
     const [isAlarmEnabled, setIsAlarmEnabled] = useAlarmStore((state) => [
         state.isAlarmEnabled,
         state.setIsAlarmEnabled,
     ]);
-
-    // Timer State Store
     const [isTimerRunning, isTimerStarted] = useTimerStateStore((state) => [
         state.isTimerRunning,
         state.isTimerStarted,
     ]);
 
-    const activeConfig = (() => {
+    // States
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Variables
+    const activeConfigShorthand:
+        | 15
+        | 25
+        | 50
+        | 90
+        | "custom_pomodoro"
+        | "stopwatch" = (() => {
         if (activeSchedulerConfig.id === "POMODORO_SCHEDULER") {
             if (isEqual(activeSchedulerConfig.schedule, POMODORO_PRESETS[15])) {
                 return 15;
@@ -198,109 +206,127 @@ export function QuickConfig() {
             ) {
                 return 90;
             } else {
-                return "custom pomodoro";
+                return "custom_pomodoro";
             }
         } else {
             return "stopwatch";
         }
     })();
 
+    // Modal handlers
+    const handleCustomPomodoroClick = () => {
+        setIsModalOpen(true);
+    };
+    const handleModalRequestClose = () => {
+        setIsModalOpen(false);
+    };
+
     return (
-        <div
-            className={`${
-                isTimerRunning ? "animated-hidden" : "animated-visible"
-            }`}
-        >
-            <span className="flex gap-1 justify-end">
-                <TextButton
-                    isActive={activeSchedulerConfig.id === "POMODORO_SCHEDULER"}
-                    onClick={() => {
-                        setActiveSchedulerConfigById("POMODORO_SCHEDULER");
-                    }}
-                >
-                    pomodoro
-                </TextButton>
-                <TextButton
-                    isActive={
-                        activeSchedulerConfig.id === "STOPWATCH_SCHEDULER"
-                    }
-                    onClick={() => {
-                        setActiveSchedulerConfigById("STOPWATCH_SCHEDULER");
-                    }}
-                >
-                    stopwatch
-                </TextButton>
-            </span>
-            {activeSchedulerConfig.id === "POMODORO_SCHEDULER" && (
+        <>
+            <div
+                className={`${
+                    isTimerRunning ? "animated-hidden" : "animated-visible"
+                }`}
+            >
                 <span className="flex gap-1 justify-end">
                     <TextButton
-                        isActive={activeConfig == 15}
-                        onClick={() => {
-                            updateSchedulerConfig("POMODORO_SCHEDULER", {
-                                name: "Pomodoro",
-                                schedule: POMODORO_PRESETS[15],
-                            });
-                        }}
-                    >
-                        15
-                    </TextButton>
-                    <TextButton
-                        isActive={isEqual(
-                            activeSchedulerConfig.schedule,
-                            activeConfig == 25
-                        )}
-                        onClick={() => {
-                            updateSchedulerConfig("POMODORO_SCHEDULER", {
-                                name: "Pomodoro",
-                                schedule: POMODORO_PRESETS[25],
-                            });
-                        }}
-                    >
-                        25
-                    </TextButton>
-                    <TextButton
-                        isActive={activeConfig == 50}
-                        onClick={() => {
-                            updateSchedulerConfig("POMODORO_SCHEDULER", {
-                                name: "Pomodoro",
-                                schedule: POMODORO_PRESETS[50],
-                            });
-                        }}
-                    >
-                        50
-                    </TextButton>
-                    <TextButton
-                        isActive={activeConfig == 90}
-                        onClick={() => {
-                            updateSchedulerConfig("POMODORO_SCHEDULER", {
-                                name: "Pomodoro",
-                                schedule: POMODORO_PRESETS[90],
-                            });
-                        }}
-                    >
-                        90
-                    </TextButton>
-                    <TextButton
-                        isActive={activeConfig == "custom pomodoro"}
-                        onClick={() => {
-                            console.log("custom selected");
-                        }}
-                        icon={
-                            <i className="fa-solid pb-[2px] fa-screwdriver-wrench"></i>
+                        isActive={
+                            activeSchedulerConfig.id === "POMODORO_SCHEDULER"
                         }
-                    />
+                        onClick={() => {
+                            setActiveSchedulerConfigById("POMODORO_SCHEDULER");
+                        }}
+                    >
+                        pomodoro
+                    </TextButton>
+                    <TextButton
+                        isActive={
+                            activeSchedulerConfig.id === "STOPWATCH_SCHEDULER"
+                        }
+                        onClick={() => {
+                            setActiveSchedulerConfigById("STOPWATCH_SCHEDULER");
+                        }}
+                    >
+                        stopwatch
+                    </TextButton>
                 </span>
-            )}
-            <span className="flex gap-2 justify-end">
-                <TextButton
-                    isActive={isAlarmEnabled}
-                    onClick={() => {
-                        setIsAlarmEnabled(!isAlarmEnabled);
-                    }}
-                >
-                    alarm
-                </TextButton>
-            </span>
-        </div>
+                {activeSchedulerConfig.id === "POMODORO_SCHEDULER" && (
+                    <span className="flex gap-1 justify-end">
+                        <TextButton
+                            isActive={activeConfigShorthand == 15}
+                            onClick={() => {
+                                updateSchedulerConfig("POMODORO_SCHEDULER", {
+                                    name: "Pomodoro",
+                                    schedule: POMODORO_PRESETS[15],
+                                });
+                            }}
+                        >
+                            15
+                        </TextButton>
+                        <TextButton
+                            isActive={isEqual(
+                                activeSchedulerConfig.schedule,
+                                activeConfigShorthand == 25
+                            )}
+                            onClick={() => {
+                                updateSchedulerConfig("POMODORO_SCHEDULER", {
+                                    name: "Pomodoro",
+                                    schedule: POMODORO_PRESETS[25],
+                                });
+                            }}
+                        >
+                            25
+                        </TextButton>
+                        <TextButton
+                            isActive={activeConfigShorthand == 50}
+                            onClick={() => {
+                                updateSchedulerConfig("POMODORO_SCHEDULER", {
+                                    name: "Pomodoro",
+                                    schedule: POMODORO_PRESETS[50],
+                                });
+                            }}
+                        >
+                            50
+                        </TextButton>
+                        <TextButton
+                            isActive={activeConfigShorthand == 90}
+                            onClick={() => {
+                                updateSchedulerConfig("POMODORO_SCHEDULER", {
+                                    name: "Pomodoro",
+                                    schedule: POMODORO_PRESETS[90],
+                                });
+                            }}
+                        >
+                            90
+                        </TextButton>
+                        <TextButton
+                            isActive={
+                                activeConfigShorthand == "custom_pomodoro"
+                            }
+                            onClick={handleCustomPomodoroClick}
+                            icon={
+                                <i className="fa-solid pb-[2px] fa-screwdriver-wrench"></i>
+                            }
+                        />
+                    </span>
+                )}
+                <span className="flex gap-2 justify-end">
+                    <TextButton
+                        isActive={isAlarmEnabled}
+                        onClick={() => {
+                            setIsAlarmEnabled(!isAlarmEnabled);
+                        }}
+                    >
+                        alarm
+                    </TextButton>
+                </span>
+            </div>
+            <ReactModal
+                isOpen={isModalOpen}
+                onRequestClose={handleModalRequestClose}
+            >
+                test test 123 123
+            </ReactModal>
+        </>
     );
 }
