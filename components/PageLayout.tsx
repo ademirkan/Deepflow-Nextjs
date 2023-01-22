@@ -38,16 +38,20 @@ export default function PageLayout(props: IProps) {
                     props.isTimerActive ? "animated-hidden" : "animated-visible"
                 }`}
             >
-                <div className="flex gap-4">
+                <div className="flex gap-5">
                     <TextButton
-                        icon={<i className="fa-solid fa-info-circle"></i>}
+                        icon={
+                            <i className="fa-solid fa-info-circle pr-[3px]"></i>
+                        }
                     >
                         About
                     </TextButton>
 
                     <a href="mailto:ademirkan@ucsd.edu">
                         <TextButton
-                            icon={<i className="fa-solid fa-envelope"></i>}
+                            icon={
+                                <i className="fa-solid fa-envelope pr-[3px]"></i>
+                            }
                         >
                             Contact
                         </TextButton>
@@ -58,22 +62,26 @@ export default function PageLayout(props: IProps) {
                         target="_blank"
                     >
                         <TextButton
-                            icon={<i className="fa-sharp fa-solid fa-code"></i>}
+                            icon={
+                                <i className="fa-sharp fa-solid fa-code pr-[3px]"></i>
+                            }
                         >
                             Github
                         </TextButton>
                     </a>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-5">
                     <TextButton
-                        icon={<i className="fa-solid fa-compact-disc"></i>}
+                        icon={
+                            <i className="fa-solid fa-compact-disc pr-[3px]"></i>
+                        }
                     >
                         Ambience
                     </TextButton>
                     <TextButton
                         onClick={handleThemeClick}
-                        icon={<i className="fa-solid fa-palette"></i>}
+                        icon={<i className="fa-solid fa-palette pr-[3px]"></i>}
                     >
                         {themeName}
                     </TextButton>
