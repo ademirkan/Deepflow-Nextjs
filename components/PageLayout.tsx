@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 import TextButton from "./Buttons/TextButton";
 import _INDEX from "../styles/themes/_INDEX.json";
 import styles from "../styles/PageLayout.module.css";
@@ -20,6 +20,7 @@ export default function PageLayout(props: IProps) {
         const themeName = _INDEX[index];
         setThemeByName(themeName);
     };
+
     return (
         <>
             <header>
