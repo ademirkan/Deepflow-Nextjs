@@ -60,6 +60,7 @@ export default function PageLayout(props: IProps) {
                     <a
                         href="https://github.com/ademirkan/Deep-Flow"
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <TextButton
                             icon={
