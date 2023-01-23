@@ -6,11 +6,18 @@
     box-sizing: border-box;
 }
 :root {
-    --main-color: #e61d1d;
+    /* --main-color: #e61d1d;
     --text-color: black;
     --bg-color: #fafafa;
     --sub-color: #b7b7b7;
     --sub-alt-color: #ececec;
+    --modal-background: rgba(0, 0, 0, 0.5); */
+
+    --main-color: black;
+    --text-color: black;
+    --bg-color: black;
+    --sub-color: black;
+    --sub-alt-color: black;
     --modal-background: rgba(0, 0, 0, 0.5);
 
     font-family: "Robotomono", monospace;
