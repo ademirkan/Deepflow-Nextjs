@@ -1,11 +1,12 @@
+import { ReactElement } from "react";
+
 interface Props {
-    variant: "contained" | "outlined" | "transparent";
+    variant?: "contained" | "outlined" | "transparent";
     state?: "default" | "active" | "disabled";
-    isFullWidth: boolean;
-    size: "sm" | "med" | "lg";
-    icon?: React.ReactNode;
+    isFullWidth?: boolean;
+    size?: "sm" | "med" | "lg";
     onClick?: () => void;
-    children: string;
+    children: any;
 }
 
 /**
@@ -14,27 +15,19 @@ interface Props {
  * size -- small-btn, medium-btn, large-btn
  */
 export default function Button(props: Props) {
-    const variant_class = `${props.variant}-btn`;
+    const variant_class = !props.variant
+        ? "contained-btn"
+        : `${props.variant}-btn`;
     const state_class = !props.state ? "default-btn" : `${props.state}-btn`;
-    const full_width = props.isFullWidth ? "full-width" : "";
-    const size_class = `btn-${props.size}`;
+    const full_width_class = props.isFullWidth ? "w-full" : "";
+    const size_class = props.size ? `btn-${props.size}` : "btn-med";
 
-    if (props.icon) {
-        return (
-            <button
-                className={`${variant_class} ${state_class} ${full_width} ${size_class}`}
-            >
-                {props.icon}
-                {props.children}
-            </button>
-        );
-    } else {
-        return (
-            <button
-                className={`${variant_class} ${state_class} ${full_width} ${size_class}`}
-            >
-                {props.children}
-            </button>
-        );
-    }
+    return (
+        <button
+            className={`${variant_class} ${state_class} ${full_width_class} ${size_class}`}
+            onClick={props.onClick}
+        >
+            {props.children}
+        </button>
+    );
 }

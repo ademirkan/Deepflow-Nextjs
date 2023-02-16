@@ -5,7 +5,7 @@ import { useSchedulerStore } from "../stores/useSchedulerStore";
 import { useAlarmStore } from "../stores/useAlarmStore";
 import { useTimerStateStore } from "../stores/useTimerStateStore";
 import { useState } from "react";
-import ReactModal from "react-modal";
+import PomodoroConfigModal from "./Modals/PomodoroConfigModal";
 
 const POMODORO_PRESETS = {
     15: [
@@ -322,12 +322,10 @@ export function QuickConfig() {
                     </TextButton>
                 </span>
             </div>
-            <ReactModal
+            <PomodoroConfigModal
                 isOpen={isModalOpen}
                 onRequestClose={handleModalRequestClose}
-            >
-                test test 123 123
-            </ReactModal>
+            ></PomodoroConfigModal>
         </>
     );
 }
