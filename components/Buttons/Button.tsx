@@ -1,5 +1,3 @@
-import { ReactElement } from "react";
-
 interface Props {
     variant?: "contained" | "outlined" | "transparent";
     state?: "default" | "active" | "disabled";
@@ -9,6 +7,7 @@ interface Props {
     children: any;
 }
 
+import styles from "../../styles/Buttons.module.css";
 /**
  * variant -- contained-btn, outlined-btn, text-btn
  * state -- default-btn, active-btn, disabled-btn
@@ -24,7 +23,7 @@ export default function Button(props: Props) {
 
     return (
         <button
-            className={`${variant_class} ${state_class} ${full_width_class} ${size_class}`}
+            className={`${styles[variant_class]} ${styles[state_class]} ${styles[size_class]} ${full_width_class} `}
             onClick={props.onClick}
         >
             {props.children}

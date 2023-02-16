@@ -10,7 +10,7 @@ import SettingComponent from "../Settings/SettingComponent";
 export default function PomodoroConfigModal(props: any) {
     return (
         <ReactModal {...props}>
-            <h1 className="text-3xl text-sub"> Pomodoro config </h1>
+            <h1 className="text-3xl text-sub pb-2"> Pomodoro config </h1>
             <SettingComponent
                 title="Study duration"
                 description="Length of the study duration"
@@ -74,7 +74,7 @@ export default function PomodoroConfigModal(props: any) {
                     ></InputOption>
                 }
             ></SettingComponent>
-            <Button isFullWidth={true}>ok</Button>
+            <Button isFullWidth>ok</Button>
         </ReactModal>
     );
 }
