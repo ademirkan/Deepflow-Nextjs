@@ -1,8 +1,6 @@
 .settingGrid {
-    display: grid;
+    display: flex;
     margin-top: 10px;
-    grid-template-areas: "title title" "description options";
-    grid-template-columns: 10fr 7fr;
     column-gap: 40px;
     font-family: "Roboto Mono", monospace;
     margin-top: 20px;

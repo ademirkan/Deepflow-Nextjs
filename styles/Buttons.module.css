@@ -45,11 +45,8 @@
 .contained-btn {
     background-color: var(--main-color);
     color: var(--bg-color);
-    border: none;
     border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
+    padding: 0.4rem;
     cursor: pointer;
     transition: background-color 150ms linear;
 }
@@ -78,4 +75,24 @@
 
 .outlined-btn:hover {
     background-color: var(--sub-color);
+}
+
+.default-btn {
+    background-color: var(--sub-color);
+    color: var(--text-color);
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 150ms linear;
+}
+
+.active-btn {
+    background-color: var(--main-color);
+    color: var(--bg-color);
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 150ms linear;
 }
