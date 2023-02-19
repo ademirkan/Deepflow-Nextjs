@@ -10,7 +10,7 @@ export const useThemeStore = create<ThemeState>()(
     devtools(
         persist(
             (set) => ({
-                theme: "hammerhead",
+                theme: "superuser",
                 setThemeByName: (themeName) => {
                     set((state) => ({
                         theme: themeName,
