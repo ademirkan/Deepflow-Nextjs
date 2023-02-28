@@ -1,4 +1,4 @@
-import styles from "./Settings.module.css";
+import styles from "../../styles/Settings.module.css";
 
 /**
  * Setting
@@ -17,12 +17,12 @@ interface ISettingForm {
 
 export default function SettingForm(props: ISettingForm) {
     return (
-        <form className={styles.settingGrid}>
-            <div className="w-[60%]">
+        <form className={styles.settingLayout}>
+            <div className={styles.detailsContainer}>
                 <label className={styles.title}>{props.title}</label>
                 <div className={styles.description}>{props.description}</div>
             </div>
-            <div className={styles.optionListContainer}>{props.actionArea}</div>
+            <div className={styles.optionsContainer}>{props.actionArea}</div>
         </form>
     );
 }

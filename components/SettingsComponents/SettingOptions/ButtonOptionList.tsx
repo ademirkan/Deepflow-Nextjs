@@ -1,4 +1,4 @@
-import Button from "../Buttons/Button";
+import Button from "../../Buttons/Button";
 import { InputOption } from "./InputOption";
 
 interface IButtonOptionList {

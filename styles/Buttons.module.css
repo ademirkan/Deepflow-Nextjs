@@ -46,9 +46,10 @@
     background-color: var(--main-color);
     color: var(--bg-color);
     border-radius: 0.5rem;
-    padding: 0.4rem;
+    padding: 0.3rem;
     cursor: pointer;
     transition: background-color 150ms linear;
+    line-height: 1.5rem;
 }
 
 .contained-btn:hover {
@@ -58,7 +59,7 @@
 
 .contained-btn:active {
     background-color: var(--sub-color) !important;
-    color: var(--text-color);
+    color: var(--bg-color);
 }
 
 .outlined-btn {
@@ -74,16 +75,12 @@
 }
 
 .outlined-btn:hover {
-    background-color: var(--sub-color);
+    background-color: var(--sub-alt-color);
 }
 
 .default-btn {
-    background-color: var(--sub-color);
+    background-color: var(--sub-alt-color);
     color: var(--text-color);
-    border: none;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
     transition: background-color 150ms linear;
 }
 

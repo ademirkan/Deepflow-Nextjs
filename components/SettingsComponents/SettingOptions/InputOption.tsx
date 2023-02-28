@@ -5,7 +5,7 @@ interface IInputOption {
     onFocus: () => void;
     currentValue: any;
 }
-import styles from "./Settings.module.css";
+import styles from "../../../styles/Settings.module.css";
 
 export function InputOption(props: IInputOption) {
     function handleKeyUp(event: any) {
@@ -19,24 +19,21 @@ export function InputOption(props: IInputOption) {
     return (
         <input
             type="number"
-            className={
-                "button " +
-                styles.inputButton +
-                " " +
-                (props.isActive && styles.buttonActive)
-            }
+            className={`${styles.inputOption} ${
+                props.isActive && styles.buttonActive
+            }`}
             placeholder={props.placeholder}
             onFocus={(e) => {
                 // make current text into currentValue
                 e.target.value = props.currentValue;
-                onFocus();
+                props.onFocus();
             }}
             onChange={(e) => {
-                if (e.target.value && e.target.value > 0)
-                    setValue(e.target.value);
+                if (e.target.value && parseInt(e.target.value) > 0)
+                    props.setValue(e.target.value);
             }}
             onKeyUp={handleKeyUp}
-            onBlur={(e) => (e.target.value = placeholder)}
+            onBlur={(e) => (e.target.value = props.placeholder)}
             onWheel={(event) => event.currentTarget.blur()}
             autoFocus={false}
         ></input>

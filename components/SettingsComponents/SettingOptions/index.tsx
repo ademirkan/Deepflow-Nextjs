@@ -1,4 +1,4 @@
-import styles from "./Settings.module.css";
+import styles from "../../styles/Settings.module.css";
 
 // /**
 //  * options, currentValue, setValue, toValue
