@@ -17,12 +17,12 @@ interface ISettingForm {
 
 export default function SettingForm(props: ISettingForm) {
     return (
-        <form className={styles.settingLayout}>
+        <div className={styles.settingLayout}>
             <div className={styles.detailsContainer}>
                 <label className={styles.title}>{props.title}</label>
                 <div className={styles.description}>{props.description}</div>
             </div>
             <div className={styles.optionsContainer}>{props.actionArea}</div>
-        </form>
+        </div>
     );
 }

@@ -1,7 +1,7 @@
 .settingLayout {
     display: grid;
     grid-template-areas: "left right";
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 2fr 1fr;
     column-gap: 30px;
     font-family: "Roboto Mono", monospace;
 }
@@ -40,7 +40,22 @@
 }
 
 .inputOption {
-    width: 45px;
+    width: 100%;
+    background-color: var(--sub-alt-color);
+    color: var(--text-color);
+    transition: background-color 150ms linear;
+    border-radius: 0.5rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    cursor: pointer;
+    caret-color: var(--main-color);
+    line-height: 1.5rem;
+}
+
+.inputOption:focus {
+    outline: none;
 }
 
 .buttonActive {

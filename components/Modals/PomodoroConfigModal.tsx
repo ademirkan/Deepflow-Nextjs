@@ -3,8 +3,99 @@ import Button from "../Buttons/Button";
 import { ButtonOptionList } from "../SettingsComponents/SettingOptions/ButtonOptionList";
 import { InputOption } from "../SettingsComponents/SettingOptions/InputOption";
 import SettingForm from "../SettingsComponents/SettingForm";
+import { useSchedulerStore } from "../../stores/useSchedulerStore";
+import { TimerType } from "../../Typescript/enums/TimerType";
 
 export default function PomodoroConfigModal(props: any) {
+    const [activeSchedulerConfig, updateSchedulerConfig] = useSchedulerStore(
+        (state) => [state.activeSchedulerConfig, state.updateSchedulerConfig]
+    );
+
+    const studyDuration = activeSchedulerConfig.schedule[0].targetDuration;
+    const shortBreakDuration = activeSchedulerConfig.schedule[1].targetDuration;
+    const longBreakDuration =
+        activeSchedulerConfig.schedule[
+            activeSchedulerConfig.schedule.length - 1
+        ].targetDuration;
+    const numStudySessions = activeSchedulerConfig.schedule.filter((item) => {
+        return !item.isBreak;
+    }).length;
+
+    const handleStudyDurationChange = (value: any) => {
+        let newSchedule = [...activeSchedulerConfig.schedule];
+        for (let i = 0; i < newSchedule.length; i++) {
+            newSchedule[i] = { ...newSchedule[i] };
+
+            if (!newSchedule[i].isBreak) {
+                newSchedule[i].targetDuration = value * 60000;
+            }
+        }
+
+        updateSchedulerConfig("POMODORO_SCHEDULER", {
+            name: "Pomodoro",
+            schedule: newSchedule,
+        });
+    };
+
+    const handleShortBreakChange = (value: any) => {
+        let newSchedule = [...activeSchedulerConfig.schedule];
+        for (let i = 0; i < newSchedule.length; i++) {
+            newSchedule[i] = { ...newSchedule[i] };
+            if (!newSchedule[i].isBreak) {
+                newSchedule[i + 1].targetDuration = value * 60000;
+            }
+        }
+
+        newSchedule[activeSchedulerConfig.schedule.length - 1].targetDuration =
+            longBreakDuration;
+
+        updateSchedulerConfig("POMODORO_SCHEDULER", {
+            name: "Pomodoro",
+            schedule: newSchedule,
+        });
+    };
+
+    const handleLongBreakChange = (value: any) => {
+        let newSchedule = [...activeSchedulerConfig.schedule];
+        newSchedule[activeSchedulerConfig.schedule.length - 1] = {
+            ...newSchedule[activeSchedulerConfig.schedule.length - 1],
+        };
+        newSchedule[activeSchedulerConfig.schedule.length - 1].targetDuration =
+            value * 60000;
+
+        updateSchedulerConfig("POMODORO_SCHEDULER", {
+            name: "Pomodoro",
+            schedule: newSchedule,
+        });
+    };
+
+    const handleLongBreakRequiredChange = (value: any) => {
+        let newSchedule = [];
+
+        for (let i = 0; i < value; i++) {
+            newSchedule.push({
+                timerType: TimerType.countdown,
+                targetDuration: studyDuration,
+                isBreak: false,
+            });
+            newSchedule.push({
+                timerType: TimerType.countdown,
+                targetDuration: shortBreakDuration,
+                isBreak: true,
+            });
+        }
+        newSchedule.push({
+            timerType: TimerType.countdown,
+            targetDuration: longBreakDuration,
+            isBreak: true,
+        });
+
+        updateSchedulerConfig("POMODORO_SCHEDULER", {
+            name: "Pomodoro",
+            schedule: newSchedule,
+        });
+    };
+
     return (
         <ReactModal {...props}>
             <div className="flex gap-6 flex-col">
@@ -14,46 +105,33 @@ export default function PomodoroConfigModal(props: any) {
                         title="Study duration"
                         description="Length of the study duration"
                         actionArea={
-                            <ButtonOptionList
-                                options={[
-                                    { label: "5", value: 5 },
-                                    { label: "10", value: 10 },
-                                    { label: "15", value: 15 },
-                                ]}
-                                currentValue={15}
-                                setValue={() => {}}
-                                hasCustomOption={true}
-                            ></ButtonOptionList>
+                            <InputOption
+                                currentValue={studyDuration / 60000}
+                                setValue={handleStudyDurationChange}
+                                onFocus={() => {}}
+                            ></InputOption>
                         }
                     ></SettingForm>
                     <SettingForm
                         title="Short break"
                         description="Length of the short break duration"
                         actionArea={
-                            <ButtonOptionList
-                                options={[
-                                    { label: "5", value: 5 },
-                                    { label: "10", value: 10 },
-                                    { label: "15", value: 15 },
-                                ]}
-                                currentValue={5}
-                                setValue={() => {}}
-                            ></ButtonOptionList>
+                            <InputOption
+                                currentValue={shortBreakDuration / 60000}
+                                setValue={handleShortBreakChange}
+                                onFocus={() => {}}
+                            ></InputOption>
                         }
                     ></SettingForm>
                     <SettingForm
                         title="Long break"
                         description="Length of the long break duration"
                         actionArea={
-                            <ButtonOptionList
-                                options={[
-                                    { label: "5", value: 5 },
-                                    { label: "10", value: 10 },
-                                    { label: "15", value: 15 },
-                                ]}
-                                currentValue={5}
-                                setValue={() => {}}
-                            ></ButtonOptionList>
+                            <InputOption
+                                currentValue={longBreakDuration / 60000}
+                                setValue={handleLongBreakChange}
+                                onFocus={() => {}}
+                            ></InputOption>
                         }
                     ></SettingForm>
                     <SettingForm
@@ -61,18 +139,16 @@ export default function PomodoroConfigModal(props: any) {
                         description="Number of pomodoros required for a long break"
                         actionArea={
                             <InputOption
-                                currentValue={4}
-                                setValue={(value: any) => {
-                                    console.log(value);
-                                }}
-                                placeholder={"Enter a number"}
+                                currentValue={numStudySessions}
+                                setValue={handleLongBreakRequiredChange}
                                 onFocus={() => {}}
-                                isActive={true}
                             ></InputOption>
                         }
                     ></SettingForm>
                 </div>
-                <Button isFullWidth>ok</Button>
+                <Button isFullWidth onClick={props.onRequestClose}>
+                    ok
+                </Button>
             </div>
         </ReactModal>
     );

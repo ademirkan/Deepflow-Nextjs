@@ -23,7 +23,7 @@ export default function Button(props: Props) {
 
     return (
         <button
-            className={`${styles[variant_class]} ${styles[state_class]} ${styles[size_class]} ${full_width_class} `}
+            className={`${styles[variant_class]} ${styles[state_class]} ${styles[size_class]} ${full_width_class} min-w-[2rem]`}
             onClick={props.onClick}
         >
             {props.children}
