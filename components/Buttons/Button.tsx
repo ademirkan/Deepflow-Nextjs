@@ -5,6 +5,7 @@ interface Props {
     size?: "sm" | "med" | "lg";
     onClick?: () => void;
     children: any;
+    key?: any;
 }
 
 import styles from "../../styles/Buttons.module.css";
@@ -23,7 +24,9 @@ export default function Button(props: Props) {
 
     return (
         <button
-            className={`${styles[variant_class]} ${styles[state_class]} ${styles[size_class]} ${full_width_class} min-w-[2rem]`}
+            className={`${styles[variant_class]} ${styles[state_class]} ${
+                styles[size_class]
+            } ${full_width_class} min-w-[2rem] ${props.key && props.key}`}
             onClick={props.onClick}
         >
             {props.children}

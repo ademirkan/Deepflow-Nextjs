@@ -16,9 +16,10 @@ interface SettingOption {
 export function ButtonOptionList(props: IButtonOptionList) {
     return (
         <>
-            {props.options.map((option) => {
+            {props.options.map((option, index) => {
                 return (
                     <Button
+                        key={index}
                         isFullWidth
                         onClick={() => {
                             props.setValue(option.value);
