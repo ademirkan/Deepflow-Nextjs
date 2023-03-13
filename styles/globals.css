@@ -30,6 +30,10 @@ body {
     transition: background-color 150ms linear;
 }
 
+footer {
+    height: 2.5rem;
+}
+
 #__next {
     margin: auto !important;
     display: grid;
@@ -41,16 +45,14 @@ body {
 }
 
 header {
-    min-height: 65px;
-    display: grid;
-    grid-template-areas: "logo menu config";
-    grid-template-columns: auto 1fr auto;
+    min-height: 3rem;
+    display: flex;
+    justify-content: space-between;
     column-gap: 10px;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
 }
 
-/* opacity transitions */
 .animated-hidden {
     transition: opacity 150ms ease-in-out, visibility 150ms ease-in-out;
     opacity: 0%;
@@ -62,7 +64,26 @@ header {
     opacity: 100%;
 }
 
-/*   P O P U P   S T Y L I N G   */
+/*Media query for children of footer*/
+footer > * {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+@media (max-width: 565px) {
+    footer {
+        justify-content: space-around !important;
+    }
+    footer > * {
+        flex-direction: column;
+        gap: 0px !important;
+        align-items: baseline !important;
+        align-self: center;
+        height: 100% !important;
+    }
+}
+
+/*   M O D A L   S T Y L I N G   */
 .ReactModal__Overlay {
     background-color: rgba(0, 0, 0, 0.75) !important;
     z-index: 100;

@@ -6,7 +6,7 @@ interface Props {
     icon?: React.ReactNode;
     onClick?: () => void;
     className?: string;
-    children?: string;
+    children?: any;
 }
 
 export default function TextButton(props: Props) {

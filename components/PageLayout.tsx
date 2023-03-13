@@ -4,6 +4,7 @@ import TextButton from "./Buttons/TextButton";
 import _INDEX from "../styles/themes/_INDEX.json";
 import styles from "../styles/PageLayout.module.css";
 import { useTheme } from "../hooks/useTheme";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 interface IProps {
     isTimerActive?: boolean;
@@ -93,12 +94,14 @@ export default function PageLayout(props: IProps) {
 }
 
 function Logo({ isTimerActive }: any) {
+    const [isMobile, setIsMobile] = useMediaQuery("(max-width: 768px)");
+
     const fill = isTimerActive ? "fill-sub" : "fill-main";
     const stroke = isTimerActive ? "stroke-sub" : "stroke-main";
     const text = isTimerActive ? "text-sub" : "text-text";
     return (
         <Link href="/">
-            <div className="flex flex-row items-center gap-3">
+            <div className="flex flex-row items-center gap-3 h-10">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="30"
@@ -121,10 +124,14 @@ function Logo({ isTimerActive }: any) {
                         d="M53.17,47.845H946.83v904.31H53.17V47.845Z"
                     />
                 </svg>
-
-                <div id={styles.logo} className={`${text} transition-colors`}>
-                    deepflow
-                </div>
+                {!isMobile && (
+                    <div
+                        id={styles.logo}
+                        className={`${text} transition-colors`}
+                    >
+                        deepflow
+                    </div>
+                )}
             </div>
         </Link>
     );
