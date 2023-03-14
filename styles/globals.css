@@ -94,7 +94,7 @@ footer > * {
     border-radius: 0.75rem !important;
     padding: 2rem !important;
     border-color: var(--bg-color) !important;
-    width: clamp(400px, 80%, 600px) !important;
+    width: clamp(250px, 80%, 600px) !important;
     height: fit-content !important;
     margin: auto !important;
 }

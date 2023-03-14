@@ -140,7 +140,7 @@ export default function MobileQuickConfigModal(props: any) {
                     ></SettingForm>
 
                     {activeSchedulerConfig.id == "POMODORO_SCHEDULER" && (
-                        <div className="flex flex-col gap-8">
+                        <div className="flex flex-col gap-4">
                             <SettingForm
                                 title="Alarm"
                                 inputArea={
@@ -162,7 +162,6 @@ export default function MobileQuickConfigModal(props: any) {
                             ></SettingForm>
                             <SettingForm
                                 title="Study duration"
-                                description="Length of the study duration"
                                 inputArea={
                                     <InputOption
                                         currentValue={studyDuration / 60000}
@@ -200,7 +199,6 @@ export default function MobileQuickConfigModal(props: any) {
                             ></SettingForm>
                             <SettingForm
                                 title="Pomodoro cycle"
-                                description="Number of pomodoros required for a long break"
                                 inputArea={
                                     <InputOption
                                         currentValue={numStudySessions}

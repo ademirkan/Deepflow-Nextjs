@@ -232,12 +232,6 @@ export function QuickConfig(props: IQuickConfig) {
         setIsModalOpen(false);
     };
 
-    useEffect(() => {
-        if (isMobile) {
-            setIsModalOpen(false);
-        }
-    }, [isMobile]);
-
     const getQuickConfigFull = () => {
         return (
             <>
