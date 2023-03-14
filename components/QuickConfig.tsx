@@ -162,11 +162,7 @@ const POMODORO_PRESETS = {
     ],
 };
 
-interface IQuickConfig {
-    mobile: boolean;
-}
-
-export function QuickConfig(props: IQuickConfig) {
+export function QuickConfig() {
     const [isMobile, setIsMobile] = useMediaQuery("(max-width: 768px)");
 
     // Stores
