@@ -5,11 +5,23 @@ import SettingForm from "../SettingsComponents/SettingForm";
 import { useSchedulerStore } from "../../stores/useSchedulerStore";
 import { TimerType } from "../../Typescript/enums/TimerType";
 import { ButtonOptionList } from "../SettingsComponents/SettingOptions/ButtonOptionList";
+import { useAlarmStore } from "../../stores/useAlarmStore";
 
 export default function MobileQuickConfigModal(props: any) {
-    const [activeSchedulerConfig, updateSchedulerConfig] = useSchedulerStore(
-        (state) => [state.activeSchedulerConfig, state.updateSchedulerConfig]
-    );
+    const [
+        activeSchedulerConfig,
+        updateSchedulerConfig,
+        setActiveSchedulerConfigById,
+    ] = useSchedulerStore((state) => [
+        state.activeSchedulerConfig,
+        state.updateSchedulerConfig,
+        state.setActiveSchedulerConfigById,
+    ]);
+
+    const [isAlarmEnabled, setIsAlarmEnabled] = useAlarmStore((state) => [
+        state.isAlarmEnabled,
+        state.setIsAlarmEnabled,
+    ]);
 
     const studyDuration = activeSchedulerConfig.schedule[0].targetDuration;
     const shortBreakDuration = activeSchedulerConfig.schedule[1].targetDuration;
@@ -108,11 +120,11 @@ export default function MobileQuickConfigModal(props: any) {
                 <h1 className="text-3xl text-sub"> Timer settings </h1>
                 <div className="flex gap-[0.5rem] flex-col">
                     <SettingForm
-                        title="Study duration"
+                        title="Study schedule"
                         inputArea={
                             <ButtonOptionList
-                                currentValue={"POMODORO_SCHEDULER"}
-                                setValue={() => {}}
+                                currentValue={activeSchedulerConfig.id}
+                                setValue={setActiveSchedulerConfigById}
                                 options={[
                                     {
                                         label: "pomodoro",
@@ -127,56 +139,80 @@ export default function MobileQuickConfigModal(props: any) {
                         }
                     ></SettingForm>
 
-                    <SettingForm
-                        title="Alarm"
-                        inputArea={
-                            <ButtonOptionList
-                                currentValue={true}
-                                setValue={() => {}}
-                                options={[
-                                    {
-                                        label: "disabled",
-                                        value: false,
-                                    },
-                                    {
-                                        label: "enabled",
-                                        value: true,
-                                    },
-                                ]}
-                            ></ButtonOptionList>
-                        }
-                    ></SettingForm>
-                    <SettingForm
-                        title="Short break"
-                        inputArea={
-                            <InputOption
-                                currentValue={shortBreakDuration / 60000}
-                                setValue={handlePomodoroShortBreakChange}
-                                onFocus={() => {}}
-                            ></InputOption>
-                        }
-                    ></SettingForm>
-                    <SettingForm
-                        title="Long break"
-                        inputArea={
-                            <InputOption
-                                currentValue={longBreakDuration / 60000}
-                                setValue={handlePomodoroLongBreakChange}
-                                onFocus={() => {}}
-                            ></InputOption>
-                        }
-                    ></SettingForm>
-                    <SettingForm
-                        title="Pomodoro cycle"
-                        description="Number of pomodoros required for a long break"
-                        inputArea={
-                            <InputOption
-                                currentValue={numStudySessions}
-                                setValue={handlePomodoroLongBreakReqChange}
-                                onFocus={() => {}}
-                            ></InputOption>
-                        }
-                    ></SettingForm>
+                    {activeSchedulerConfig.id == "POMODORO_SCHEDULER" && (
+                        <div className="flex flex-col gap-8">
+                            <SettingForm
+                                title="Alarm"
+                                inputArea={
+                                    <ButtonOptionList
+                                        currentValue={isAlarmEnabled}
+                                        setValue={setIsAlarmEnabled}
+                                        options={[
+                                            {
+                                                label: "disabled",
+                                                value: false,
+                                            },
+                                            {
+                                                label: "enabled",
+                                                value: true,
+                                            },
+                                        ]}
+                                    ></ButtonOptionList>
+                                }
+                            ></SettingForm>
+                            <SettingForm
+                                title="Study duration"
+                                description="Length of the study duration"
+                                inputArea={
+                                    <InputOption
+                                        currentValue={studyDuration / 60000}
+                                        setValue={
+                                            handlePomodoroStudyDurationChange
+                                        }
+                                        onFocus={() => {}}
+                                    ></InputOption>
+                                }
+                            ></SettingForm>
+
+                            <SettingForm
+                                title="Short break"
+                                inputArea={
+                                    <InputOption
+                                        currentValue={
+                                            shortBreakDuration / 60000
+                                        }
+                                        setValue={
+                                            handlePomodoroShortBreakChange
+                                        }
+                                        onFocus={() => {}}
+                                    ></InputOption>
+                                }
+                            ></SettingForm>
+                            <SettingForm
+                                title="Long break"
+                                inputArea={
+                                    <InputOption
+                                        currentValue={longBreakDuration / 60000}
+                                        setValue={handlePomodoroLongBreakChange}
+                                        onFocus={() => {}}
+                                    ></InputOption>
+                                }
+                            ></SettingForm>
+                            <SettingForm
+                                title="Pomodoro cycle"
+                                description="Number of pomodoros required for a long break"
+                                inputArea={
+                                    <InputOption
+                                        currentValue={numStudySessions}
+                                        setValue={
+                                            handlePomodoroLongBreakReqChange
+                                        }
+                                        onFocus={() => {}}
+                                    ></InputOption>
+                                }
+                            ></SettingForm>
+                        </div>
+                    )}
                 </div>
                 <Button isFullWidth onClick={props.onRequestClose}>
                     ok
