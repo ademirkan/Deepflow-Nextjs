@@ -4,6 +4,7 @@ import { InputOption } from "../SettingsComponents/SettingOptions/InputOption";
 import SettingForm from "../SettingsComponents/SettingForm";
 import { useSchedulerStore } from "../../stores/useSchedulerStore";
 import { TimerType } from "../../Typescript/enums/TimerType";
+import { ButtonOptionList } from "../SettingsComponents/SettingOptions/ButtonOptionList";
 
 export default function MobileQuickConfigModal(props: any) {
     const [activeSchedulerConfig, updateSchedulerConfig] = useSchedulerStore(
@@ -20,7 +21,7 @@ export default function MobileQuickConfigModal(props: any) {
         return !item.isBreak;
     }).length;
 
-    const handleStudyDurationChange = (value: any) => {
+    const handlePomodoroStudyDurationChange = (value: any) => {
         let newSchedule = [...activeSchedulerConfig.schedule];
         for (let i = 0; i < newSchedule.length; i++) {
             newSchedule[i] = { ...newSchedule[i] };
@@ -36,7 +37,7 @@ export default function MobileQuickConfigModal(props: any) {
         });
     };
 
-    const handleShortBreakChange = (value: any) => {
+    const handlePomodoroShortBreakChange = (value: any) => {
         let newSchedule = [...activeSchedulerConfig.schedule];
         for (let i = 0; i < newSchedule.length; i++) {
             newSchedule[i] = { ...newSchedule[i] };
@@ -54,7 +55,7 @@ export default function MobileQuickConfigModal(props: any) {
         });
     };
 
-    const handleLongBreakChange = (value: any) => {
+    const handlePomodoroLongBreakChange = (value: any) => {
         let newSchedule = [...activeSchedulerConfig.schedule];
         newSchedule[activeSchedulerConfig.schedule.length - 1] = {
             ...newSchedule[activeSchedulerConfig.schedule.length - 1],
@@ -68,7 +69,7 @@ export default function MobileQuickConfigModal(props: any) {
         });
     };
 
-    const handleLongBreakRequiredChange = (value: any) => {
+    const handlePomodoroLongBreakReqChange = (value: any) => {
         let newSchedule = [];
 
         for (let i = 0; i < value; i++) {
@@ -95,40 +96,72 @@ export default function MobileQuickConfigModal(props: any) {
         });
     };
 
+    const handleSchedulerChange = (value: any) => {
+        updateSchedulerConfig(value, activeSchedulerConfig);
+    };
+
+    const handleAlarmChange = (value: any) => {};
+
     return (
         <ReactModal {...props}>
             <div className="flex gap-6 flex-col">
-                <h1 className="text-3xl text-sub"> Pomodoro config </h1>
-                <div className="flex gap-[24px] flex-col">
+                <h1 className="text-3xl text-sub"> Timer settings </h1>
+                <div className="flex gap-[0.5rem] flex-col">
                     <SettingForm
                         title="Study duration"
-                        description="Length of the study duration"
-                        actionArea={
-                            <InputOption
-                                currentValue={studyDuration / 60000}
-                                setValue={handleStudyDurationChange}
-                                onFocus={() => {}}
-                            ></InputOption>
+                        inputArea={
+                            <ButtonOptionList
+                                currentValue={"POMODORO_SCHEDULER"}
+                                setValue={() => {}}
+                                options={[
+                                    {
+                                        label: "pomodoro",
+                                        value: "POMODORO_SCHEDULER",
+                                    },
+                                    {
+                                        label: "stopwatch",
+                                        value: "STOPWATCH_SCHEDULER",
+                                    },
+                                ]}
+                            ></ButtonOptionList>
+                        }
+                    ></SettingForm>
+
+                    <SettingForm
+                        title="Alarm"
+                        inputArea={
+                            <ButtonOptionList
+                                currentValue={true}
+                                setValue={() => {}}
+                                options={[
+                                    {
+                                        label: "disabled",
+                                        value: false,
+                                    },
+                                    {
+                                        label: "enabled",
+                                        value: true,
+                                    },
+                                ]}
+                            ></ButtonOptionList>
                         }
                     ></SettingForm>
                     <SettingForm
                         title="Short break"
-                        description="Length of the short break duration"
-                        actionArea={
+                        inputArea={
                             <InputOption
                                 currentValue={shortBreakDuration / 60000}
-                                setValue={handleShortBreakChange}
+                                setValue={handlePomodoroShortBreakChange}
                                 onFocus={() => {}}
                             ></InputOption>
                         }
                     ></SettingForm>
                     <SettingForm
                         title="Long break"
-                        description="Length of the long break duration"
-                        actionArea={
+                        inputArea={
                             <InputOption
                                 currentValue={longBreakDuration / 60000}
-                                setValue={handleLongBreakChange}
+                                setValue={handlePomodoroLongBreakChange}
                                 onFocus={() => {}}
                             ></InputOption>
                         }
@@ -136,10 +169,10 @@ export default function MobileQuickConfigModal(props: any) {
                     <SettingForm
                         title="Pomodoro cycle"
                         description="Number of pomodoros required for a long break"
-                        actionArea={
+                        inputArea={
                             <InputOption
                                 currentValue={numStudySessions}
-                                setValue={handleLongBreakRequiredChange}
+                                setValue={handlePomodoroLongBreakReqChange}
                                 onFocus={() => {}}
                             ></InputOption>
                         }

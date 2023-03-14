@@ -26,8 +26,8 @@ const StopwatchTimer = (props: ITimerProps) => {
         <div
             style={{
                 position: "relative",
-                height: "min(300px, 100%)",
-                width: "min(300px, 100%)",
+                height: "clamp(200px, 100%, 300px)",
+                width: "clamp(200px, 100%, 300px)",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

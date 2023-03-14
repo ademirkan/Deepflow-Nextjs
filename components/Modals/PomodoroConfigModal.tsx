@@ -104,7 +104,7 @@ export default function PomodoroConfigModal(props: any) {
                     <SettingForm
                         title="Study duration"
                         description="Length of the study duration"
-                        actionArea={
+                        inputArea={
                             <InputOption
                                 currentValue={studyDuration / 60000}
                                 setValue={handleStudyDurationChange}
@@ -115,7 +115,7 @@ export default function PomodoroConfigModal(props: any) {
                     <SettingForm
                         title="Short break"
                         description="Length of the short break duration"
-                        actionArea={
+                        inputArea={
                             <InputOption
                                 currentValue={shortBreakDuration / 60000}
                                 setValue={handleShortBreakChange}
@@ -126,7 +126,7 @@ export default function PomodoroConfigModal(props: any) {
                     <SettingForm
                         title="Long break"
                         description="Length of the long break duration"
-                        actionArea={
+                        inputArea={
                             <InputOption
                                 currentValue={longBreakDuration / 60000}
                                 setValue={handleLongBreakChange}
@@ -137,7 +137,7 @@ export default function PomodoroConfigModal(props: any) {
                     <SettingForm
                         title="Pomodoro cycle"
                         description="Number of pomodoros required for a long break"
-                        actionArea={
+                        inputArea={
                             <InputOption
                                 currentValue={numStudySessions}
                                 setValue={handleLongBreakRequiredChange}
