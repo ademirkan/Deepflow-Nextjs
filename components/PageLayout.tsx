@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 import TextButton from "./Buttons/TextButton";
-import _INDEX from "../styles/themes/_INDEX.json";
+import _favorite_themes_index from "../styles/themes/_favorite_themes_index.json";
 import styles from "../styles/PageLayout.module.css";
 import { useTheme } from "../hooks/useTheme";
 import { useMediaQuery } from "../hooks/useMediaQuery";
+import ThemeConfigModal from "./Modals/ThemeConfigModal";
 
 interface IProps {
     isTimerActive?: boolean;
@@ -14,12 +15,21 @@ interface IProps {
 
 export default function PageLayout(props: IProps) {
     const [themeName, setThemeByName] = useTheme();
+    const [themeIndex, setThemeIndex] = useState(0);
+
+    const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+    const handleThemeModalRequestClose = () => {
+        setIsThemeModalOpen(false);
+    };
     const handleThemeClick = () => {
-        // choose random index in range of _INDEX
-        const index = Math.floor(Math.random() * _INDEX.length);
-        // get theme from _INDEX
-        const themeName = _INDEX[index];
-        setThemeByName(themeName);
+        // if (themeIndex + 1 < _favorite_themes_index.length)
+        //     setThemeIndex(themeIndex + 1);
+        // else setThemeIndex(0);
+
+        // // get theme from _favorite_themes_index
+        // const themeName = _favorite_themes_index[themeIndex];
+        // setThemeByName(themeName);
+        setIsThemeModalOpen(true);
     };
 
     return (
@@ -81,12 +91,17 @@ export default function PageLayout(props: IProps) {
                     >
                         Ambience
                     </TextButton>
+
                     <TextButton
                         onClick={handleThemeClick}
                         icon={<i className="fa-solid fa-palette pr-[3px]"></i>}
                     >
                         {themeName}
                     </TextButton>
+                    <ThemeConfigModal
+                        isOpen={isThemeModalOpen}
+                        onRequestClose={handleThemeModalRequestClose}
+                    ></ThemeConfigModal>
                 </div>
             </footer>
         </>
@@ -176,7 +191,16 @@ function NavMenu({ isTimerActive }: any) {
                     <Link href="/oops">
                         <TextButton
                             icon={
-                                <i className="fa-solid fa-link fa-lg px-3 py-4"></i>
+                                <i className="fa-solid fa-link fa-lg px-[0.6rem] py-4"></i>
+                            }
+                        ></TextButton>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/login">
+                        <TextButton
+                            icon={
+                                <i className="fa-solid fa-user fa-lg px-3 py-4"></i>
                             }
                         ></TextButton>
                     </Link>

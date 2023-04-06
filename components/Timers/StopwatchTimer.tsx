@@ -1,5 +1,5 @@
 import useStopwatch from "../../hooks/useStopwatch";
-import React, { FC } from "react";
+import React from "react";
 import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
 import { ITimerProps } from "../../Typescript/interfaces/ITimerProps";
 

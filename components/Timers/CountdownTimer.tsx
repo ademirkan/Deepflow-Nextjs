@@ -3,7 +3,6 @@ import { useAlarm } from "../../hooks/useAlarm";
 import useStopwatch from "../../hooks/useStopwatch";
 import useTimerState from "../../hooks/useTimerState";
 import { useAlarmStore } from "../../stores/useAlarmStore";
-import { useTimerStateStore } from "../../stores/useTimerStateStore";
 import { ICountdownTimerProps } from "../../Typescript/interfaces/ICountdownTimerProps";
 import { ITimerViewProps } from "../../Typescript/interfaces/ITimerViewProps";
 

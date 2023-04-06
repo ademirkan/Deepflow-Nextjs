@@ -1,5 +1,3 @@
-import styles from "../styles/CircularProgress.module.css";
-
 const CircularProgress = ({
     filledPercent,
     animationDuration = "1s",

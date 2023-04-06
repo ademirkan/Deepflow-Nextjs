@@ -371,9 +371,7 @@ export function QuickConfig() {
                     <MobileQuickConfigModal
                         isOpen={isModalOpen}
                         onRequestClose={handleModalRequestClose}
-                    >
-                        <div>arstarstarst arstarstarsta arst</div>
-                    </MobileQuickConfigModal>
+                    ></MobileQuickConfigModal>
                 </div>
             </div>
         );

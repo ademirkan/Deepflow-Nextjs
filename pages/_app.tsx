@@ -1,26 +1,44 @@
-import Script from "next/script";
-import { useEffect } from "react";
-
+// pages/_app.tsx
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { useThemeStore } from "../stores/useThemeStore";
 import "../styles/globals.css";
+import StarsBackground from "../components/StarsBackground";
+import Script from "next/script";
 
-export default function App({ Component, pageProps }: any) {
+function App({ Component, pageProps }: any) {
     const activeThemeName = useThemeStore((state) => state.theme);
-    console.log(activeThemeName);
+    const router = useRouter();
+    const [isTransitioning, setIsTransitioning] = useState(false);
+
     useEffect(() => {
-        import(`../styles/themes/${activeThemeName}`).then((module) => {
-            const theme = module.default;
-            Object.keys(theme).forEach((key) => {
-                const value = theme[key];
-                document.documentElement.style.setProperty(key, value);
-            });
-        });
-    }, []);
+        const handleRouteChangeStart = () => {
+            setIsTransitioning(true);
+        };
+        const handleRouteChangeComplete = () => {
+            setIsTransitioning(false);
+        };
+
+        router.events.on("routeChangeStart", handleRouteChangeStart);
+        router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+        return () => {
+            router.events.off("routeChangeStart", handleRouteChangeStart);
+            router.events.off("routeChangeComplete", handleRouteChangeComplete);
+        };
+    }, [router.events]);
+
     return (
         <>
             <Script src="https://kit.fontawesome.com/b3f869c97c.js"></Script>
 
-            <Component {...pageProps} />
+            <Component
+                {...pageProps}
+                className={isTransitioning ? "pageTransition" : ""}
+            />
+            {activeThemeName === "nasa" && <StarsBackground />}
         </>
     );
 }
+
+export default App;

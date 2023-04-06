@@ -26,6 +26,7 @@
 }
 
 body {
+    color: var(--text-color);
     background-color: var(--bg-color);
     transition: background-color 150ms linear;
 }
@@ -93,10 +94,13 @@ footer > * {
     background-color: var(--bg-color) !important;
     border-radius: 0.75rem !important;
     padding: 2rem !important;
-    border-color: var(--bg-color) !important;
+    border-color: var(--sub-color) !important;
+    border-width: 1px !important;
     width: clamp(250px, 80%, 600px) !important;
     height: fit-content !important;
     margin: auto !important;
+    transition: color 100ms linear, background-color 100ms linear;
+    border-color: pink;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
