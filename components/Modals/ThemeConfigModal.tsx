@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
-import Button from "../Buttons/Button";
-import _favorite_themes_index from "../../styles/themes/_favorite_themes_index.json";
+import _theme_index from "../../styles/themes/_theme_index.json";
 import styles from "../../styles/ThemeConfigModal.module.css";
 import { useTheme } from "../../hooks/useTheme";
 
@@ -9,7 +8,7 @@ export default function ThemeConfigModal(props: any) {
     const [searchInput, setSearchInput] = useState("");
     const [themeName, setThemeByName] = useTheme();
 
-    const filteredThemes = _favorite_themes_index.filter((themeName) =>
+    const filteredThemes = _theme_index.filter((themeName) =>
         themeName.toLowerCase().includes(searchInput.toLowerCase())
     );
 

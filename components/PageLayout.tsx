@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 import TextButton from "./Buttons/TextButton";
-import _favorite_themes_index from "../styles/themes/_favorite_themes_index.json";
 import styles from "../styles/PageLayout.module.css";
 import { useTheme } from "../hooks/useTheme";
 import { useMediaQuery } from "../hooks/useMediaQuery";
@@ -22,13 +21,6 @@ export default function PageLayout(props: IProps) {
         setIsThemeModalOpen(false);
     };
     const handleThemeClick = () => {
-        // if (themeIndex + 1 < _favorite_themes_index.length)
-        //     setThemeIndex(themeIndex + 1);
-        // else setThemeIndex(0);
-
-        // // get theme from _favorite_themes_index
-        // const themeName = _favorite_themes_index[themeIndex];
-        // setThemeByName(themeName);
         setIsThemeModalOpen(true);
     };
 

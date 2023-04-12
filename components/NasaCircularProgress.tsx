@@ -1,5 +1,4 @@
 const NasaCircularProgress = ({
-    filledPercent,
     animationDuration = "1s",
     animationTimingFunction = "linear",
     clockwise = false,
