@@ -21,6 +21,17 @@ export default function ThemeConfigModal(props: any) {
         props.onRequestClose();
     };
 
+    useEffect(() => {
+        if (!props.isOpen) {
+            if (!themeConfirmed) {
+                setThemeByName(initialTheme.current);
+            } else {
+                initialTheme.current = themeName;
+            }
+            setThemeConfirmed(false);
+        }
+    }, [props.isOpen]);
+
     return (
         <ReactModal isOpen={props.isOpen} onRequestClose={handleClose}>
             <div className="flex flex-col gap-4 h-[70vh]">
