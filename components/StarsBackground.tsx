@@ -4,7 +4,7 @@ import styles from "../styles/nasa.module.css";
 const StarsBackground: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const generateParticles = (number) => {
+    const generateParticles = (number: number) => {
         const container = containerRef.current;
         if (!container) return;
 
@@ -35,6 +35,7 @@ const StarsBackground: React.FC = () => {
                 containerRef.current
                     .querySelectorAll(`.${styles.particle}`)
                     .forEach((particle) => {
+                        // @ts-ignore
                         containerRef.current.removeChild(particle);
                     });
             }

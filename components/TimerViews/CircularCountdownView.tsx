@@ -31,12 +31,6 @@ export default function CircularCountdownView(
         return (
             <>
                 <NasaCircularProgress
-                    filledPercent={
-                        props.isRunning
-                            ? (remainingTime - 900) /
-                              props.targetDuration.valueOf()
-                            : remainingTime / props.targetDuration.valueOf()
-                    }
                     clockwise={clockwise}
                     thickness={0.03}
                     animationDuration={props.isRunning ? "1s" : "0.15s"}
