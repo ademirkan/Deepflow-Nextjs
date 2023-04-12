@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSchedulerStore } from "../stores/useSchedulerStore";
 import { TimerSession } from "../Typescript/types/TimerSession";
 
