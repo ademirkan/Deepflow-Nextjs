@@ -7,7 +7,6 @@ import { useTimerStateStore } from "../stores/useTimerStateStore";
 import { useEffect, useState } from "react";
 import PomodoroConfigModal from "./Modals/PomodoroConfigModal";
 import { useMediaQuery } from "../hooks/useMediaQuery";
-import ReactModal from "react-modal";
 import MobileQuickConfigModal from "./Modals/MobileQuickConfigModal";
 
 const POMODORO_PRESETS = {
@@ -274,7 +273,8 @@ export function QuickConfig() {
                                         {
                                             name: "Pomodoro",
                                             schedule: POMODORO_PRESETS[15],
-                                        }
+                                        },
+                                        0
                                     );
                                 }}
                                 className="px-[2px]"
@@ -289,7 +289,8 @@ export function QuickConfig() {
                                         {
                                             name: "Pomodoro",
                                             schedule: POMODORO_PRESETS[25],
-                                        }
+                                        },
+                                        0
                                     );
                                 }}
                                 className="px-[2px]"
@@ -304,7 +305,8 @@ export function QuickConfig() {
                                         {
                                             name: "Pomodoro",
                                             schedule: POMODORO_PRESETS[50],
-                                        }
+                                        },
+                                        0
                                     );
                                 }}
                                 className="px-[2px]"
@@ -319,7 +321,8 @@ export function QuickConfig() {
                                         {
                                             name: "Pomodoro",
                                             schedule: POMODORO_PRESETS[90],
-                                        }
+                                        },
+                                        0
                                     );
                                 }}
                                 className="px-[2px]"

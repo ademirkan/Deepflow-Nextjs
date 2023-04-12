@@ -10,7 +10,8 @@ interface SchedulerPreferences {
     getSchedulerConfigById: (id: string) => ISchedulerConfig | undefined;
     updateSchedulerConfig: (
         id: string,
-        config: Omit<ISchedulerConfig, "id">
+        config: Omit<ISchedulerConfig, "id">,
+        currentIndex?: number
     ) => boolean;
     deleteSchedulerConfig: (id: string) => boolean;
     createSchedulerConfig: (config: Omit<ISchedulerConfig, "id">) => boolean;
@@ -103,7 +104,8 @@ export const useSchedulerStore = create<
                 },
                 updateSchedulerConfig: (
                     id: string,
-                    config: Omit<ISchedulerConfig, "id">
+                    config: Omit<ISchedulerConfig, "id">,
+                    currentIndex?: number
                 ) => {
                     let newSchedulerConfigs = [...get().allSchedulerConfigs];
                     let indexOfConfig = get().allSchedulerConfigs.findIndex(
@@ -112,6 +114,12 @@ export const useSchedulerStore = create<
 
                     if (indexOfConfig < 0) {
                         return false;
+                    }
+
+                    if (currentIndex !== undefined) {
+                        set((state) => ({
+                            scheduleIndex: currentIndex,
+                        }));
                     }
 
                     newSchedulerConfigs[indexOfConfig] = { id: id, ...config };
@@ -220,7 +228,10 @@ export const useSchedulerStore = create<
                 setActiveSchedulerConfigById: (id: string) => {
                     const config = get().getSchedulerConfigById(id);
                     if (config) {
-                        set((state) => ({ activeSchedulerConfig: config }));
+                        set((state) => ({
+                            activeSchedulerConfig: config,
+                            scheduleIndex: 0,
+                        }));
                         return true;
                     }
                     return false;
