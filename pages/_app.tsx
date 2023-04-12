@@ -7,7 +7,7 @@ import StarsBackground from "../components/StarsBackground";
 import Script from "next/script";
 
 function App({ Component, pageProps }: any) {
-    const activeThemeName = useThemeStore((state) => state.theme);
+    const specialThemeName = useThemeStore((state) => state.specialThemeName);
     const router = useRouter();
     const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -36,7 +36,7 @@ function App({ Component, pageProps }: any) {
                 {...pageProps}
                 className={isTransitioning ? "pageTransition" : ""}
             />
-            {activeThemeName === "nasa" && <StarsBackground />}
+            {specialThemeName === "nasa" && <StarsBackground />}
         </>
     );
 }

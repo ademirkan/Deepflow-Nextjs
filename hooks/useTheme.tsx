@@ -3,7 +3,7 @@ import { useThemeStore } from "../stores/useThemeStore";
 
 export const useTheme: () => [string, (theme: string) => void] = () => {
     const [themeName, setThemeByName] = useThemeStore((state) => [
-        state.theme,
+        state.themeName,
         state.setThemeByName,
     ]);
 

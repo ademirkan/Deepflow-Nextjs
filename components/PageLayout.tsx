@@ -13,9 +13,6 @@ interface IProps {
 }
 
 export default function PageLayout(props: IProps) {
-    const [themeName, setThemeByName] = useTheme();
-    const [themeIndex, setThemeIndex] = useState(0);
-
     const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
     const handleThemeModalRequestClose = () => {
         setIsThemeModalOpen(false);
@@ -88,7 +85,7 @@ export default function PageLayout(props: IProps) {
                         onClick={handleThemeClick}
                         icon={<i className="fa-solid fa-palette pr-[3px]"></i>}
                     >
-                        {themeName}
+                        theme
                     </TextButton>
                     <ThemeConfigModal
                         isOpen={isThemeModalOpen}

@@ -47,6 +47,8 @@ export default function useTimerProps(): ITimerProps {
         },
     };
 
+    console.log(currentSession);
+
     const viewConstructor: TimerViewConstructor =
         currentSession.timerType == TimerType.countdown
             ? VIEW_CONSTRUCTORS.countdown
