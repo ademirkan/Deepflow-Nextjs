@@ -6,13 +6,6 @@
     box-sizing: border-box;
 }
 :root {
-    /* --main-color: #e61d1d;
-    --text-color: black;
-    --bg-color: #fafafa;
-    --sub-color: #b7b7b7;
-    --sub-alt-color: #ececec;
-    --modal-background: rgba(0, 0, 0, 0.5); */
-
     --main-color: black;
     --text-color: black;
     --bg-color: black;
@@ -94,13 +87,11 @@ footer > * {
     background-color: var(--bg-color) !important;
     border-radius: 0.75rem !important;
     padding: 2rem !important;
-    border-color: var(--sub-color) !important;
-    border-width: 1px !important;
+    border-width: 0px !important;
     width: clamp(250px, 80%, 600px) !important;
     height: fit-content !important;
     margin: auto !important;
     transition: color 100ms linear, background-color 100ms linear;
-    border-color: pink;
 }
 
 input[type="number"]::-webkit-inner-spin-button,

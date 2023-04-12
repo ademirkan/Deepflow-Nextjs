@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactModal from "react-modal";
 import Button from "../Buttons/Button";
 import _favorite_themes_index from "../../styles/themes/_favorite_themes_index.json";
-import styles from "./ThemeConfigModal.module.css";
+import styles from "../../styles/ThemeConfigModal.module.css";
 import { useTheme } from "../../hooks/useTheme";
 
 export default function ThemeConfigModal(props: any) {
@@ -18,11 +18,13 @@ export default function ThemeConfigModal(props: any) {
             <div className="flex flex-col gap-4 h-[70vh]">
                 <input
                     type="text"
-                    className="border border-gray-300 rounded p-2"
-                    placeholder="Search for a theme..."
+                    className="border border-none bg-transparent rounded p-2 placeholder-text transition-colors focus:outline-none text-lg"
+                    placeholder="Type to search"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
+                    autoFocus
                 />
+
                 <div
                     className={`flex flex-col gap-2 overflow-y-auto flex-grow ${styles.customScrollbar}`}
                 >
@@ -32,6 +34,7 @@ export default function ThemeConfigModal(props: any) {
                             className="leading-tight hover:bg-sub p-1 rounded"
                             onClick={() => {
                                 setThemeByName(themeName);
+                                setSearchInput("");
                                 props.onRequestClose();
                             }}
                             onMouseOver={(e) => {
