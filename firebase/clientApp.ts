@@ -25,4 +25,4 @@ const app = initializeApp(firebaseConfig);
 
 export const googleAuthProvider = new GoogleAuthProvider();
 export const auth = getAuth(app);
-export const db = getDatabase();
+export const db = getDatabase(app);
